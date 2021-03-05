@@ -1,22 +1,24 @@
-<header>
+<header class="bg-gray-300">
     
 <nav class="flex flex-row flex-wrap py-4 px-14">
 
     <a class="logo" href="#"> Thrift-Mart  </a> 
     
     
-    <a class="icon ml-auto"> <i class="fas fa-bars"> </i> </a> 
+    <button ng-click="showMenu(true)" class="ml-auto w-8 h-8"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+      </svg> </button>
 
-    <div class = "w-full hidden">
-        <ul class="flex flex-col space-y-2">
+    <div *ngIf ="showMenu" class = "w-full py-8" id = "navMenu">
+        <ul class="flex flex-col space-y-4 items-center">
 
-                <li> <a class="item" href="#"> About      </a> </li>
+                <li> <a class=" border-transparent border-b-4 hover:border-green-300" href="#"> About      </a> </li>
             
-                <li> <a class="item" href="#"> Catalog    </a> </li>
+                <li> <a class="border-transparent border-b-4 hover:border-green-300" href="#"> Catalog    </a> </li>
             
-                <li> <a class="item button" href="#"> Login     </a> </li>
+                <li> <a class="border-transparent border-b-4 hover:border-green-300" href="#"> Login     </a> </li>
 
-                <li> <a class="item button" href="#"> Sign up   </a> </li>
+                <li> <a class="border-transparent border-b-4 hover:border-green-300" href="#"> Sign up   </a> </li>
         </ul>
     
     </div>
