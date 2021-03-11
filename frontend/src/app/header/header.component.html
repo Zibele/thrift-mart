@@ -1,15 +1,24 @@
 <header class="bg-gray-300">
     
-<nav class="flex flex-row flex-wrap py-4 px-14">
 
     <a class="logo" href="#"> Thrift-Mart  </a> 
     
     
-    <button ng-click="showMenu(true)" class="ml-auto w-8 h-8"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+    <button (click) ="toggle()" class="ml-auto w-8 h-8"> 
+        
+        <svg *ngIf="!isToggled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-      </svg> </button>
+        </svg>
 
-    <div *ngIf ="showMenu" class = "w-full py-8" id = "navMenu">
+        <svg *ngIf="isToggled" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        
+        
+    
+    </button>
+
+    <div *ngIf ="isToggled" class = "w-full py-8" id = "navMenu">
         <ul class="flex flex-col space-y-4 items-center">
 
                 <li> <a class=" border-transparent border-b-4 hover:border-green-300" href="#"> About      </a> </li>

@@ -7,21 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  private _showMenu : boolean;
+  private _menuToggle : boolean;
 
-  constructor() { this._showMenu = false}
+  constructor() { this._menuToggle = false}
 
   ngOnInit(): void {
     
   }
 
-  public get showMenu() {
-    return this._showMenu;
+  public get isToggled() {
+    return this._menuToggle;
   }
 
-  public set showMenu(showMenu : boolean){
-    this._showMenu=showMenu;
-    console.log("Clicked")
+  public toggle(){
+    this._menuToggle ? this._menuToggle = false : this._menuToggle = true;
   }
 
 }
