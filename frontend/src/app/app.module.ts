@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { StoreHeaderComponent } from './store-header/store-header.component';
+import { CatalogueComponent } from './catalogue/catalogue.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StoreHeaderComponent } from './store-header/store-header.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    StoreHeaderComponent
+    StoreHeaderComponent,
+    CatalogueComponent
   ],
   imports: [
     BrowserModule,
