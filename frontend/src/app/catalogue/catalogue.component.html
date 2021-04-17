@@ -1,1 +1,19 @@
-<p>catalogue works!</p>
+
+<div class="flex flex-col">
+
+    <app-store-header></app-store-header>
+   
+    <div *ngIf="false;else noItems">
+      
+    </div>
+
+    <ng-template #noItems>
+        No Items
+    </ng-template>
+
+  
+
+</div>
+
+
+
