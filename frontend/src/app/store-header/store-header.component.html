@@ -1,20 +1,42 @@
 
 <div class = "flex flex-col  bg-red-300 "> 
+
     <div class = "flex justify-center"> 
-    <button class=" bg-gray-50 w-8 h-8">
 
-        <svg id="filter" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <button class="w-8 h-8" (click) = "filterToggle()">
 
-    </button>
+            <svg *ngIf="!filterToggled; else closeFilter"  id="filter" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+            <ng-template #closeFilter>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </ng-template>
+
+        </button>
+
     </div>
-    <form class="flex">
 
-    
+    <div class = "w-full">
+        
+        <form class="flex">
+
+            <label> Type </label>
+
+            <select id="clothingType">
+
+                <option> <input type="checkbox" value="T-shirt"> T-shirt </option>
+                <option> <input type="checkbox" value="Skirt" class="w-4 h-4"> Skirt  </option>
+
+            </select>
+
+        
 
 
 
-    </form>    
+        </form>
+    </div>    
 
 </div>

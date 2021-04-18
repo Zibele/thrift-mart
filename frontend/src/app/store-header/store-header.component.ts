@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreHeaderComponent implements OnInit {
 
-  constructor() { }
+  public filterToggled : Boolean;
+  
+  constructor() { 
+    this.filterToggled = false;
+  }
 
   ngOnInit(): void {
   }
 
+  filterToggle(){
+    this.filterToggled ? this.filterToggled = false : this.filterToggled = true;
+  }
 }
