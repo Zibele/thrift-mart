@@ -1,5 +1,5 @@
 
-<div class = "flex flex-col  bg-red-300 "> 
+<div class = "flex flex-col   "> 
 
     <div class = "flex justify-center"> 
 
@@ -19,22 +19,24 @@
 
     </div>
 
-    <div class = "w-full">
+    <div class = "w-full h-16">
         
         <form class="flex">
 
-            <label> Type </label>
+            
+            <mat-form-field appearance="fill">
 
-            <select id="clothingType">
+                <mat-label>Toppings</mat-label>
 
-                <option> <input type="checkbox" value="T-shirt"> T-shirt </option>
-                <option> <input type="checkbox" value="Skirt" class="w-4 h-4"> Skirt  </option>
+                <mat-select [formControl] = "categories" multiple>
+                    
+                    <mat-option *ngFor = "let category of categoryList" [value]="categories">
+                        {{category}}
+                    </mat-option>
 
-            </select>
+                </mat-select>
 
-        
-
-
+            </mat-form-field>
 
         </form>
     </div>    

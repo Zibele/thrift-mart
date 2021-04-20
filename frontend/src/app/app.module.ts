@@ -14,6 +14,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { StoreHeaderComponent } from './store-header/store-header.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { CatalogueComponent } from './catalogue/catalogue.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    LayoutModule
+    LayoutModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

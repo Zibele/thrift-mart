@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+interface Category {
+  value : String;
+  viewValue : String;
+}
 
 @Component({
   selector: 'app-store-header',
@@ -7,10 +13,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreHeaderComponent implements OnInit {
 
-  public filterToggled : Boolean;
   
+  filterToggled : Boolean;
+  categoryList : String[];
+  selectedCategory : Category;
+  categories : FormControl;
+
   constructor() { 
+    this.categories = new FormControl();
     this.filterToggled = false;
+    this.categoryList = ["T-shirt","Dress","Skirt","Pants"];
+    this.selectedCategory = {value:"All", viewValue:"All"};
   }
 
   ngOnInit(): void {
