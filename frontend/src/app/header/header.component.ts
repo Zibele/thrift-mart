@@ -1,26 +1,24 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { Component,OnDestroy, OnInit,Input } from '@angular/core';
+import { BreakpointObserver,Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
 
-  private _menuToggle : boolean;
-  private readonly _LARGE_SCREEN : number = 1024;
-  public mobile : boolean;
-
-  constructor(public mediaMatcher : MediaMatcher) { 
+export class HeaderComponent implements OnInit, OnDestroy {
   
-    this._menuToggle = false
+   isMobile : Boolean = false;
+  _menuToggle = false;;
+  
+  sub : Subscription;
+
+  constructor(private breakpointObserver : BreakpointObserver) { 
     
-    this.mobile = false;
-  }
-
-  
-  ngOnInit(): void {
+    this._menuToggle = false;
+    this.sub = new Subscription();
   
   }
 
@@ -32,11 +30,26 @@ export class HeaderComponent implements OnInit{
     this._menuToggle ? this._menuToggle = false : this._menuToggle = true;
   }
 
-  @HostListener("window:resize",[])
-  public onResize(){
-    this.mobile=window.screen.width < this._LARGE_SCREEN;
+  ngOnInit(): void {
+
+     this.sub = this.breakpointObserver.observe([Breakpoints.Large,Breakpoints.XLarge])
+                .subscribe( (state : BreakpointState) => {
+
+                  if(state.breakpoints[Breakpoints.XLarge]||state.breakpoints[Breakpoints.Large]){
+                    console.log("is not mobile(header)");
+                    this.isMobile = false;
+                  }
+                  else{
+                    console.log("Is mobile (header)");
+                    this.isMobile = true;
+                  }
+
+                });
+
   }
 
-  
 
+  ngOnDestroy() : void {
+      this.sub.unsubscribe();
+  }
 }

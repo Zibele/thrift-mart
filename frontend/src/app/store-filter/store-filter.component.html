@@ -1,0 +1,77 @@
+<div class = "flex flex-col space-y-2 items-center   "> 
+        
+        <button *ngIf='isMobile' class="w-8 h-8" (click) = "filterToggle()">
+
+            <svg *ngIf="!filterToggled && isMobile"  id="filter" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+           
+            <svg *ngIf="filterToggled && isMobile" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+
+        </button>
+        
+      
+
+   
+    <form *ngIf="filterToggled || !isMobile" class="flex flex-col flex-wrap justify-center space-y-2">
+
+        <div class=" flex flex-col justify-center space-y-2 lg:flex-row lg:space-x-4" >
+
+            <mat-form-field appearance="fill" class="lg:pt-2">
+            
+                <mat-label>Categories</mat-label>
+                    
+                    <mat-select  [formControl]="categories" multiple>
+                        <mat-option>
+                            All
+                        </mat-option>
+                        <mat-option *ngFor = "let c of categoryList" [value] = "c.value">
+                                {{c.viewValue}}
+                        </mat-option>
+                        
+                    </mat-select>
+            
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            
+                <mat-label>Min</mat-label>
+            
+                    <mat-select>
+                        
+                        <mat-option *ngFor ="let price of priceList" [value] = "price.value" >
+                            {{price.viewValue}}
+                        </mat-option>
+                
+                    </mat-select>
+            
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            
+                <mat-label>Max</mat-label>
+            
+                    <mat-select >
+                        
+                        <mat-option *ngFor = "let price of priceList" [value] = "price.value">
+                            {{ price.viewValue }}
+                        </mat-option>
+                
+                    </mat-select>
+            
+            </mat-form-field>
+       </div>
+
+       <div class="flex justify-center">
+        <button mat-raised-button color="primary"> Search </button>
+       </div>
+            
+    </form>
+
+
+
+</div>
+

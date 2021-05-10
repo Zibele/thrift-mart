@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
+import { ApiService } from '../api.service';
+import {Item} from '../models/item';
 
 @Component({
   selector: 'app-catalogue',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogueComponent implements OnInit {
 
-  constructor() { }
+  @Input() isMobile = false;
+  items : Item[] = [];
+
+  constructor(private apiService : ApiService) { }
 
   ngOnInit(): void {
+
+    this.apiService.readItems().subscribe( items  => {
+      this.items = items;
+      console.log(items);
+
+    }, err => {
+      console.log(err);
+    });
+      
   }
 
 }

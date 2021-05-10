@@ -1,19 +1,22 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Product }  from './product';
+import {Item} from './models/item';
 import { Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private httpClient:HttpClient) { }
+  private readonly PHP_SERVER = "http://127.0.0.1:8080";
 
-  PHP_API_SERVER = "http://127.0.0.1:8080";
+  constructor(private httpClient : HttpClient) { }
 
-  readProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${this.PHP_API_SERVER}/api/read.php`);
+
+  readItems() : Observable<Item[]> {
+    return this.httpClient.get<Item[]>(`${this.PHP_SERVER}/api/read.php`);
   }
+
+
+
 }
