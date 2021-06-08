@@ -2,6 +2,7 @@ asgiref==3.3.4
 Django==3.2.3
 django-cors-headers==3.7.0
 djangorestframework==3.12.4
+-e git+https://github.com/Zibele/credit-wise.git@600856748e46c435be77774ebe64bb0e4d6727da#egg=ecommerceApis&subdirectory=backend
 mysqlclient==2.0.3
 python-dotenv==0.17.1
 pytz==2021.1
