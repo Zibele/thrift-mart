@@ -11,7 +11,7 @@ class ProductGenderCategorySerializer(serializers.ModelSerializer):
         model = ProductGenderCategory
         fields = "__all__"
 
-class ProductSerializer(serializer.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"

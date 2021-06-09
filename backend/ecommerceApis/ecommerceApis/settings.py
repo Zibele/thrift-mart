@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# CORS
+# CORS - Allows django to request resources from other servers
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
