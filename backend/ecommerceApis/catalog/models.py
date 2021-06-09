@@ -14,14 +14,16 @@ class ProductType(models.Model):
         (TOP,"Tops"),
         (BOTTOM, "Bottoms"),
         (DRESS, "Dresses"),
-        (FOOT_WEAR, "Foot wear"),
-        (OUT_WEAR, "Out Wear")
+        (FOOT_WEAR, "Footwear"),
+        (OUT_WEAR, "Outwear")
         )
     
     id = models.PositiveSmallIntegerField(choices = CHOICES,primary_key=True)
     
     def __str__(self):
         return self.get_id_display()
+    
+
 
 class ProductGenderCategory(models.Model):
     MALE = 1
@@ -38,6 +40,9 @@ class ProductGenderCategory(models.Model):
 
     def __str__(self):
         return self.get_id_display()
+    
+    class Meta:
+        verbose_name_plural = "Product gender categories"
 
 
 class Product(models.Model):

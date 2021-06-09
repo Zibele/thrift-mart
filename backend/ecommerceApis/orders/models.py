@@ -27,3 +27,6 @@ class OrderStatus(models.Model):
 
     def __str__(self):
         return self.get_id_display()
+    
+    class Meta:
+        verbose_name_plural = "Order statuses"

@@ -15,6 +15,9 @@ class Country(models.Model):
     def __str__(self):
         return self.get_id_display()
 
+    class Meta:
+        verbose_name_plural = "Countries"
+
 
 class Address(models.Model):
     country = models.ForeignKey(Country, on_delete = models.SET_NULL, null = True)
@@ -22,3 +25,6 @@ class Address(models.Model):
     
     def __str__(self):
         return f"{address},{country}" 
+
+    class Meta:
+        verbose_name_plural = "Addresses"
