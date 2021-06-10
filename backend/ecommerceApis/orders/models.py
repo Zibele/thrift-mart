@@ -1,6 +1,6 @@
 from django.db import models
 from profiles.models import Profile
-from catalog.models import Product
+from products.models import Product
 
 class Order(models.Model):
     user = models.ForeignKey(Profile,on_delete = models.CASCADE)

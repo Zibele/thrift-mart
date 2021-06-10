@@ -57,8 +57,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.EmailField(max_length=254)),
-                ('address', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='catalog.address')),
-                ('roles', models.ManyToManyField(to='catalog.Role')),
+                ('address', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='products.address')),
+                ('roles', models.ManyToManyField(to='products.Role')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -71,9 +71,9 @@ class Migration(migrations.Migration):
                 ('price', models.PositiveIntegerField(default=50, validators=[django.core.validators.MinValueValidator(50), django.core.validators.MaxValueValidator(1000)])),
                 ('quantity_in_stock', models.BooleanField(default=False)),
                 ('date_posted', models.DateTimeField(auto_now_add=True)),
-                ('gender_category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='catalog.productgendercategory')),
-                ('product_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='catalog.producttype')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.profile')),
+                ('gender_category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='products.productgendercategory')),
+                ('product_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='products.producttype')),
+                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.profile')),
             ],
         ),
         migrations.CreateModel(
@@ -81,13 +81,13 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField()),
-                ('products', models.ManyToManyField(to='catalog.Product')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.profile')),
+                ('products', models.ManyToManyField(to='products.Product')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.profile')),
             ],
         ),
         migrations.AddField(
             model_name='address',
             name='country',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='catalog.country'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='products.country'),
         ),
     ]

@@ -44,11 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'catalog',
+    'products',
     'profiles',
     'orders',
     'locations',
     'corsheaders',
+    'django_rename_app'
 ]
 
 MIDDLEWARE = [

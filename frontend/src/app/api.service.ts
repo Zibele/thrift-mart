@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Item} from './models/item';
+import {Product} from './models/product';
 import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
@@ -8,13 +8,13 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ApiService {
 
-  private readonly PHP_SERVER = "http://127.0.0.1:8080";
+  private readonly DJANGO_SERVER = "http://127.0.0.1:8000";
 
   constructor(private httpClient : HttpClient) { }
 
 
-  readItems() : Observable<Item[]> {
-    return this.httpClient.get<Item[]>(`${this.PHP_SERVER}/api/read.php`);
+  readProducts() : Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${this.DJANGO_SERVER}/api/products`);
   }
 
 

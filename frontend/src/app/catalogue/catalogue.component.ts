@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import { ApiService } from '../api.service';
-import {Item} from '../models/item';
+import {Product} from '../models/product';
 
 @Component({
   selector: 'app-catalogue',
@@ -10,15 +10,15 @@ import {Item} from '../models/item';
 export class CatalogueComponent implements OnInit {
 
   @Input() isMobile = false;
-  items : Item[] = [];
+  Products : Product[] = [];
 
   constructor(private apiService : ApiService) { }
 
   ngOnInit(): void {
 
-    this.apiService.readItems().subscribe( items  => {
-      this.items = items;
-      console.log(items);
+    this.apiService.readProducts().subscribe( Products  => {
+      this.Products = Products;
+      console.log(Products);
 
     }, err => {
       console.log(err);

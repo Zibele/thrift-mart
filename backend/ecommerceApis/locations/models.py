@@ -24,7 +24,7 @@ class Address(models.Model):
     address = models.TextField()
     
     def __str__(self):
-        return f"{address},{country}" 
+        return f"{self.address},{self.country}" 
 
     class Meta:
         verbose_name_plural = "Addresses"

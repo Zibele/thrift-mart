@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('profiles', '0001_initial'),
-        ('catalog', '0004_auto_20210608_2225'),
+        ('products', '0004_auto_20210608_2225'),
     ]
 
     operations = [
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField()),
-                ('products', models.ManyToManyField(to='catalog.Product')),
+                ('products', models.ManyToManyField(to='products.Product')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.profile')),
             ],
         ),
