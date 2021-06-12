@@ -18,6 +18,7 @@ export class CatalogueComponent implements OnInit {
 
     this.apiService.readProducts().subscribe( Products  => {
       this.Products = Products;
+      
       console.log(Products);
 
     }, err => {

@@ -9,17 +9,18 @@ class ProductType(models.Model):
     DRESS = 3
     FOOT_WEAR = 4
     OUT_WEAR = 5
-
+    OTHER = 6
     CHOICES = ( 
         (TOP,"Tops"),
         (BOTTOM, "Bottoms"),
         (DRESS, "Dresses"),
         (FOOT_WEAR, "Footwear"),
-        (OUT_WEAR, "Outwear")
+        (OUT_WEAR, "Outwear"),
+        (OTHER,"Other")
         )
     
     id = models.PositiveSmallIntegerField(choices = CHOICES,primary_key=True)
-    
+    category = models.CharField(choices = CHOICES, max_length= 10, default=OTHER)
     def __str__(self):
         return self.get_id_display()
     
@@ -37,7 +38,7 @@ class ProductGenderCategory(models.Model):
         )
 
     id = models.PositiveSmallIntegerField(choices = CHOICES, primary_key = True)
-
+    category = models.CharField(choices = CHOICES, default=UNISEX, max_length=10)
     def __str__(self):
         return self.get_id_display()
     
@@ -45,8 +46,13 @@ class ProductGenderCategory(models.Model):
         verbose_name_plural = "Product gender categories"
 
 
+def product_directory_path(instance,filename):
+    return "products/uploads/{0}/{1}".format(instance.id,filename)
+
 class Product(models.Model):
+
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
+    image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
     title = models.CharField(max_length=50)
     description = models.TextField(80)
     product_type = models.ForeignKey(ProductType, on_delete = models.SET_NULL, null = True)
@@ -57,6 +63,11 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title} - R {self.price}"
+
+    
+
+    
+
 
 
 
