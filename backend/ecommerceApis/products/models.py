@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator,MaxValueValidator
 from profiles.models import Profile
-
+import uuid
 
 class ProductType(models.Model):
     TOP = 1
@@ -47,10 +47,11 @@ class ProductGenderCategory(models.Model):
 
 
 def product_directory_path(instance,filename):
-    return "products/uploads/{0}/{1}".format(instance.id,filename)
+    return "products/{0}/{1}".format(instance.id,filename)
+
 
 class Product(models.Model):
-
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
     image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
     title = models.CharField(max_length=50)

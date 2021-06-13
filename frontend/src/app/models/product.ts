@@ -3,7 +3,8 @@
 
 export class Product {
         profile: string | undefined;
-        titile: string | undefined;
+        title: string | undefined;
+        image: string | undefined;
         productType: string | undefined;
         genderCategory: string | undefined;
         price: number | undefined;

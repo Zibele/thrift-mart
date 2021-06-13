@@ -17,8 +17,8 @@ export class CatalogueComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiService.readProducts().subscribe( Products  => {
-      this.Products = Products;
       
+      this.Products = Products;
       console.log(Products);
 
     }, err => {
