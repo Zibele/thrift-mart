@@ -10,7 +10,6 @@ class Order(models.Model):
     def __str__(self):
         return self.products.title
 
-
 class OrderStatus(models.Model):
 
     DELIVERY_PENDING = 1

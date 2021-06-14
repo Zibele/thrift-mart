@@ -14,7 +14,7 @@ class ProductGenderCategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(use_url=True)
-
+    product_type = ProductTypeSerializer(read_only=True,source = "ProductType.category")
     class Meta:
         model = Product
         fields = "__all__"
