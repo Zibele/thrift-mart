@@ -1,10 +1,8 @@
-<div class = "flex flex-col p-4">
+<div class = "flex flex-col lg:justify-center p-4 bg-red-400">
 
     <article *ngFor= "let product of Products">
         <h1>{{product.title}}</h1>
-        <img src='{{product.image}}' alt='{{product.title}}'> 
+        <img src='{{product.image}}' alt='{{product.title}}' class="h-72 w-72"> 
     </article>
     
-
-  
 </div>
