@@ -9,17 +9,13 @@ const App = () => {
   const isTabletOrMobile = useMediaQuery({
    query: '(max-width: 1024px)'
   })
-  const {width} = useViewport();
-
-  const breakPoint = 1024;
-
-  console.log("Width: "+width);
+  
 
   return (
-          <ViewportProvider>
+          <>
             <Header isTabletOrMobile = {isTabletOrMobile}/>
             <ProductList/>
-          </ViewportProvider>
+          </>
   )
 
 

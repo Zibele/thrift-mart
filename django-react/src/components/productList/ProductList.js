@@ -24,8 +24,8 @@ class ProductList extends Component{
 
         return (
 
-            <div class = "flex flex-col lg:justify-center p-4 bg-red-400">
-                {items};
+            <div class = "flex flex-col items-center lg:justify-center p-4 bg-red-400">
+                {items}
             </div>
 
         );
