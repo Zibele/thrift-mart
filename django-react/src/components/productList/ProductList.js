@@ -2,7 +2,7 @@
 import axios from "axios";
 import {Component} from "react";
 import ProductItem from "components/productItem/ProductItem";
-
+import Filter from "components/filter/Filter";
 
 class ProductList extends Component{
 
@@ -23,11 +23,12 @@ class ProductList extends Component{
         )
 
         return (
-
-            <div class = "flex flex-col items-center lg:justify-center p-4 bg-red-400">
+            <>
+            <Filter/>
+            <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
                 {items}
             </div>
-
+            </>
         );
     }
 

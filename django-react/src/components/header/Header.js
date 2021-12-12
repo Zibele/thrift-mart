@@ -72,13 +72,13 @@ class Header extends Component {
            
            navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center bg-gray-200 py-3 lg:w-auto lg:mr-4 lg:bg-gray-300  lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
             
-                            <li> <a class=" border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#"> About      </a> </li>
+                            <li> <a class=" border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#About"> About      </a> </li>
                             
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#"> Catalog    </a> </li>
+                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#Catalog"> Catalog    </a> </li>
                             
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#"> Login     </a> </li>
+                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#Login"> Login     </a> </li>
 
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#"> Sign up   </a> </li>
+                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#SignUp"> Sign up   </a> </li>
                         </ul>);
         }
 
