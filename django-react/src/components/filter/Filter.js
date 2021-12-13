@@ -8,7 +8,8 @@ class Filter extends Component {
     state = {
         priceMin: 0,
         priceMax: 500,
-        category: 0
+        category: 0,
+        filterIsOpen: false,
     }
 
     options = [
@@ -21,19 +22,27 @@ class Filter extends Component {
 
         return (
 
-            <div class="flex w-full bg-gray-400">
+            <div className="flex w-full justify-center bg-gray-400 space-x-4 p-4">
 
-                <button> Order by </button>
-                <div class="w-72">    
-                    <Select options={this.options} isMulti/>
+                <button className=""> Order by </button>
+                <div className="w-64">    
+                    <Select options={this.options}/>
                 </div>
+                <button>Filter</button>
+
                 
 
             </div>
 
-        
-        
         );
+
+    }
+
+
+
+    openFilter = () => {
+
+        this.setState({filterIsOpen:true});
 
     }
 
