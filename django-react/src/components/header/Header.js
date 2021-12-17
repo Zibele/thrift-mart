@@ -1,7 +1,9 @@
 import {Component} from "react";
-
+import ScreenContext from "helpers/Screen";
 
 class Header extends Component {
+
+    static contextType = ScreenContext;
 
     state = {
         showHeaderMenu : false
@@ -9,6 +11,8 @@ class Header extends Component {
 
 
     render(){
+
+    
 
         return (
 
@@ -34,7 +38,7 @@ class Header extends Component {
 
     renderHeaderMenuButton = () => {
         let headerMenuButton;
-        if(this.props.isTabletOrMobile){
+        if(this.context.isTabletOrMobile){
             if(this.state.showHeaderMenu) {
 
                 headerMenuButton = ( 
@@ -67,7 +71,7 @@ class Header extends Component {
 
         let navButtons;
 
-        if(!this.props.isTabletOrMobile || (this.props.isTabletOrMobile && this.state.showHeaderMenu)){
+        if(!this.context.isTabletOrMobile || (this.context.isTabletOrMobile && this.state.showHeaderMenu)){
           
            
            navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center bg-gray-200 py-3 lg:w-auto lg:mr-4 lg:bg-gray-300  lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
