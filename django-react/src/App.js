@@ -14,7 +14,7 @@ const App = () => {
     query: '(max-width: 1024px)'
    });
 
-   console.log("Before returning");
+   
   return (
           <ScreenContext.Provider value ={{isTabletOrMobile:isTabletOrMobile}} >
             <Header isTabletOrMobile = {isTabletOrMobile}/>

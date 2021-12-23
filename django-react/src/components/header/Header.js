@@ -12,8 +12,6 @@ class Header extends Component {
 
     render(){
 
-    
-
         return (
 
             <header class ="bg-gray-300 w-full mb-4">

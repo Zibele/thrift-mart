@@ -8,6 +8,7 @@ class ProductList extends Component{
 
     state = {
         productItems: [],
+        categoryItems: []
     }
 
     render(){
@@ -24,10 +25,10 @@ class ProductList extends Component{
 
         return (
             <>
-            <Filter/>
-            <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
-                {items}
-            </div>
+                <Filter/>
+                <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
+                    {items}
+                </div>
             </>
         );
     }
@@ -36,6 +37,7 @@ class ProductList extends Component{
     componentDidMount(){
 
         this.getProductList();
+        this.getProductCategories();
         
     }
     
@@ -47,6 +49,14 @@ class ProductList extends Component{
             .then((res)=>this.setState({productItems:res.data}))
             .catch((err)=>console.log(err));
     
+    }
+
+    getProductCategories(){
+        axios
+            .get("api/categories")
+            .then((res)=>this.setState({categoryItems:res.data}))
+            .catch((err)=>console.log(err));
+            
     }
 
 }
