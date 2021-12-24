@@ -20,7 +20,7 @@ class ProductType(models.Model):
         )
     
     id = models.PositiveSmallIntegerField(choices = CHOICES,primary_key=True)
-    category = models.CharField(choices = CHOICES, max_length= 10, default=OTHER)
+    category = models.CharField(max_length=20,default="Tops")
     def __str__(self):
         return self.get_id_display()
     
@@ -38,7 +38,8 @@ class ProductGenderCategory(models.Model):
         )
 
     id = models.PositiveSmallIntegerField(choices = CHOICES, primary_key = True)
-    category = models.CharField(choices = CHOICES, default=UNISEX, max_length=10)
+    category = models.CharField(max_length=20)
+
     def __str__(self):
         return self.get_id_display()
     

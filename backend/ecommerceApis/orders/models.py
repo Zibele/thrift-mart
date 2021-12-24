@@ -22,7 +22,8 @@ class OrderStatus(models.Model):
         (ORDER_CANCELLED,"Cancelled"),
     )
 
-    id = models.PositiveSmallIntegerField(choices = ORDER_STATUS, primary_key = True ) 
+    id = models.PositiveSmallIntegerField(choices = ORDER_STATUS, primary_key = True )
+    order_status = models.CharField(max_length=20,default="Delivery is pending") 
 
     def __str__(self):
         return self.get_id_display()
