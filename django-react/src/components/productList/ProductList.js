@@ -25,9 +25,11 @@ class ProductList extends Component{
 
         return (
             <>
-                <Filter/>
-                <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
-                    {items}
+                <div className="flex flex-col lg:flex-row">
+                    <Filter/>
+                    <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
+                        {items}
+                    </div>
                 </div>
             </>
         );
@@ -37,7 +39,7 @@ class ProductList extends Component{
     componentDidMount(){
 
         this.getProductList();
-        this.getProductCategories();
+       
         
     }
     
@@ -51,13 +53,7 @@ class ProductList extends Component{
     
     }
 
-    getProductCategories(){
-        axios
-            .get("api/categories")
-            .then((res)=>this.setState({categoryItems:res.data}))
-            .catch((err)=>console.log(err));
-            
-    }
+    
 
 }
 
