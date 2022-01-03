@@ -13,7 +13,8 @@ class ProductGenderCategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class ProductSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(use_url=True)
+    primary_image = serializers.ImageField(use_url=True)
+    secondary_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Product
         fields = "__all__"

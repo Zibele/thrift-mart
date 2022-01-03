@@ -18,18 +18,19 @@ class Filter extends Component {
         productTypes: [],
         category: 0,
         filterIsOpen: false,
+        radioValue: '0'
 
     };
 
-    options = [];
 
-    radioValue = "Tops";
+
+   
 
 
     render(){
 
         return (
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full lg:w-48 bg-gray-400 ">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
@@ -75,7 +76,7 @@ class Filter extends Component {
        
         if(this.context.isTabletOrMobile){
             filter = (
-                <div className="flex w-full justify-center bg-gray-400 space-x-4 p-4">
+                <div className="flex w-full justify-center space-x-4 p-4">
                     <button className=""> Order by </button>
                     <div className="w-64">    
                         <Select options={this.state.productTypes}/>
@@ -88,14 +89,15 @@ class Filter extends Component {
         else{
             filter = (
 
-                <div className="flex flex-col bg-gray-400">
+                <div className="flex flex-col p-4">
 
-                    <div className="p-4 divide-y divide-gray-200">Refine by</div>
+                    <div className="pb-4">Refine by</div>
                     
-                    <RadioGroup onChange={this.setRadioValue} value={this.radioValue}>
+                    <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
 
                         <Stack direction="column">
-                            {this.options.map(item=>(<Radio value={item}>{item}</Radio>))}
+                            <Radio value='0'>All</Radio>
+                            {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
                         </Stack>
 
                     </RadioGroup>
@@ -111,16 +113,19 @@ class Filter extends Component {
         return filter;
     }
 
-    setRadioValue = (radioValue) =>{
+    setRadioValue = (name,value) =>{
 
-        this.radioValue = radioValue;
+        console.log(`Trying to change ${name} for ${value}`);
 
+        this.setState({radioValue:value});
+        
+        
     }
     renderPriceFilter = () => {
 
         let itemFilter;
      
-        if(this.state.filterIsOpen && this.context.isTabletOrMobile){
+        if((this.state.filterIsOpen && this.context.isTabletOrMobile)||!this.context.isTabletOrMobile){
 
             itemFilter = (<PriceFilter/>);
 

@@ -1,40 +1,32 @@
 from django.db import models
 from django.core.validators import MinValueValidator,MaxValueValidator
+from django.db.models.fields import CharField
 from profiles.models import Profile
+from django.utils import timezone
 import uuid
 
 class ProductType(models.Model):
-    TOP = 1
-    BOTTOM = 2
-    DRESS = 3
-    FOOT_WEAR = 4
-    OUT_WEAR = 5
-    OTHER = 6
+    JACKETS = 1
+    SHIRTS = 2
     CHOICES = ( 
-        (TOP,"Tops"),
-        (BOTTOM, "Bottoms"),
-        (DRESS, "Dresses"),
-        (FOOT_WEAR, "Footwear"),
-        (OUT_WEAR, "Outwear"),
-        (OTHER,"Other")
+        (JACKETS,"Jackets"),
+        (SHIRTS,"Shirts")
         )
     
     id = models.PositiveSmallIntegerField(choices = CHOICES,primary_key=True)
-    category = models.CharField(max_length=20,default="Tops")
+    category = models.CharField(max_length=20,default="Jackets")
     def __str__(self):
-        return self.get_id_display()
+        return str(self.get_id_display())
     
 
 
 class ProductGenderCategory(models.Model):
-    MALE = 1
-    FEMALE = 2
-    UNISEX = 3
-
+    MEN = 1
+    WOMEN = 2
+   
     CHOICES = (
-        (MALE,"Male"),
-        (FEMALE,"Female"),
-        (UNISEX,"Unisex"),
+        (MEN,"Men"),
+        (WOMEN,"Women"),
         )
 
     id = models.PositiveSmallIntegerField(choices = CHOICES, primary_key = True)
@@ -44,24 +36,51 @@ class ProductGenderCategory(models.Model):
         return self.get_id_display()
     
     class Meta:
-        verbose_name_plural = "Product gender categories"
+        verbose_name_plural = "Product Gender Categories"
 
 
 def product_directory_path(instance,filename):
     return "products/{0}/{1}".format(instance.id,filename)
 
+class Brand(models.Model):
+
+    brand = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.brand
+
+class Colour(models.Model):
+
+    colour = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.colour
+
+class Size(models.Model):
+    
+    size =  models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.size       
+
 
 class Product(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
-    image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
-    title = models.CharField(max_length=50)
-    description = models.TextField(80)
+    primary_image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
+    secondary_image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
+    title = models.CharField(max_length=100)
+    brand = models.ForeignKey(Brand,on_delete = models.SET_NULL, null = True)
+    colour = models.ForeignKey(Colour,on_delete = models.SET_NULL, null = True)
+    size = models.ForeignKey(Size, on_delete = models.SET_NULL, null = True)
     product_type = models.ForeignKey(ProductType, on_delete = models.SET_NULL, null = True)
     gender_category = models.ForeignKey(ProductGenderCategory, on_delete = models.SET_NULL, null = True)
     price = models.DecimalField(max_digits = 7, decimal_places = 2,validators = [MinValueValidator(0.01),MaxValueValidator(10000.00)])
     quantity_in_stock = models.PositiveIntegerField(default = 0, validators = [MinValueValidator(0)])
-    date_posted = models.DateTimeField(auto_now_add=True)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.title} - R {self.price}"
+
+
+

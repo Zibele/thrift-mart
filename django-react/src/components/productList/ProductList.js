@@ -25,7 +25,7 @@ class ProductList extends Component{
 
         return (
             <>
-                <div className="flex flex-col lg:flex-row">
+                <div className="flex flex-col lg:flex-row bg-red-300">
                     <Filter/>
                     <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
                         {items}

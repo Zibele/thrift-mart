@@ -1,0 +1,65 @@
+[
+    {
+        "model": "products.brand",
+        "pk": 1,
+        "fields": {
+            "brand": "Calvin Klein"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 2,
+        "fields": {
+            "brand": "Lee Cooper"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 3,
+        "fields": {
+            "brand": "Levi's"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 4,
+        "fields": {
+            "brand": "Reebok"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 5,
+        "fields": {
+            "brand": "Lee"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 6,
+        "fields": {
+            "brand": "Ralph Lauren"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 7,
+        "fields": {
+            "brand": "Wrangler"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 8,
+        "fields": {
+            "brand": "Brag Vintage"
+        }
+    },
+    {
+        "model": "products.brand",
+        "pk": 9,
+        "fields": {
+            "brand": "Dickies"
+        }
+    }
+]

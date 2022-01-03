@@ -1,0 +1,44 @@
+[
+    {
+        "model": "products.size",
+        "pk": 1,
+        "fields": {
+            "size": "XS"
+        }
+    },
+    {
+        "model": "products.size",
+        "pk": 2,
+        "fields": {
+            "size": "Medium"
+        }
+    },
+    {
+        "model": "products.size",
+        "pk": 3,
+        "fields": {
+            "size": "Large"
+        }
+    },
+    {
+        "model": "products.size",
+        "pk": 4,
+        "fields": {
+            "size": "XL"
+        }
+    },
+    {
+        "model": "products.size",
+        "pk": 5,
+        "fields": {
+            "size": "2XL"
+        }
+    },
+    {
+        "model": "products.size",
+        "pk": 6,
+        "fields": {
+            "size": "Small"
+        }
+    }
+]
