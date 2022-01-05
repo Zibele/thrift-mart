@@ -12,22 +12,29 @@ class ProductList extends Component{
     }
 
     render(){
-
-        const items = this.state.productItems.map((item) =>
-
-            <ProductItem 
+      
+        const items = this.state.productItems.map((item) => {
+        
+        
+        let brandName = item.brand != null ? item.brand['brand'] : "None" 
+            
+        return  <ProductItem 
                 id = {item.id}
                 title = {item.title}
                 price = {item.price}
-                image = {item.image}
+                primaryImage = {item.primary_image}
+                secondaryImage = {item.secondary_image}
+                brand = {brandName}
+
             />    
+        }
         )
 
         return (
             <>
-                <div className="flex flex-col lg:flex-row bg-red-300">
+                <div className="flex flex-col md:justify-between md:px-4 md:flex-row bg-white">
                     <Filter/>
-                    <div class = "flex flex-col items-center lg:flex-row p-4 bg-red-400">
+                    <div class = "grid grid-cols-2 gap-2 w-full  items-center md:justify-center md:flex  md:flex-wrap md:py-0 md:flex-row ">
                         {items}
                     </div>
                 </div>
@@ -40,7 +47,6 @@ class ProductList extends Component{
 
         this.getProductList();
        
-        
     }
     
     

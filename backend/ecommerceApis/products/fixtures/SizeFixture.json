@@ -3,21 +3,21 @@
         "model": "products.size",
         "pk": 1,
         "fields": {
-            "size": "XS"
+            "size": "Large"
         }
     },
     {
         "model": "products.size",
         "pk": 2,
         "fields": {
-            "size": "Medium"
+            "size": "Small"
         }
     },
     {
         "model": "products.size",
         "pk": 3,
         "fields": {
-            "size": "Large"
+            "size": "2XL"
         }
     },
     {
@@ -31,14 +31,14 @@
         "model": "products.size",
         "pk": 5,
         "fields": {
-            "size": "2XL"
+            "size": "Medium"
         }
     },
     {
         "model": "products.size",
         "pk": 6,
         "fields": {
-            "size": "Small"
+            "size": "XS"
         }
     }
 ]

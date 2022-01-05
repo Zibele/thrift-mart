@@ -4,6 +4,8 @@ from django.db.models.fields import CharField
 from profiles.models import Profile
 from django.utils import timezone
 import uuid
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 class ProductType(models.Model):
     JACKETS = 1
@@ -39,8 +41,7 @@ class ProductGenderCategory(models.Model):
         verbose_name_plural = "Product Gender Categories"
 
 
-def product_directory_path(instance,filename):
-    return "products/{0}/{1}".format(instance.id,filename)
+
 
 class Brand(models.Model):
 
@@ -64,11 +65,26 @@ class Size(models.Model):
         return self.size       
 
 
+def product_directory_path(instance,filename):
+    return "products/{0}/{1}".format(instance.id,filename)
+
+def product_storage_path():
+    image_storage = FileSystemStorage(
+    # Physical file location ROOT
+    location=u'{0}/products/'.format(settings.MEDIA_ROOT),
+    # Url for file
+    base_url=u'{0}products/'.format(settings.MEDIA_URL),
+    )
+
+    return image_storage
+
+
 class Product(models.Model):
+
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
-    primary_image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
-    secondary_image = models.ImageField(upload_to=product_directory_path,default="default.jpg")
+    primary_image = models.ImageField(upload_to=product_directory_path,storage = product_storage_path,default="default.jpg")
+    secondary_image = models.ImageField(upload_to=product_directory_path, storage = product_storage_path,default="default.jpg")
     title = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand,on_delete = models.SET_NULL, null = True)
     colour = models.ForeignKey(Colour,on_delete = models.SET_NULL, null = True)

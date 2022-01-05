@@ -1,5 +1,5 @@
 import {Component} from "react";
-
+import BuyButton from "components/buy-button/buy-button";
 
 class ProductItem extends Component {
    
@@ -7,14 +7,14 @@ class ProductItem extends Component {
 
         return (
 
-            <article class="flex flex-col w-72">
+            <article class="flex flex-col w-48 ">
               
-              <img src={this.props.image} alt={this.props.title} class="h-72 w-72"/> 
-              <h2>{this.props.title}</h2>
-              <div class ="flex justify-between bg-gray-400">
-                  <h1> R{this.props.price}</h1>
-                  <a href="#Home"> Buy </a>
-              </div>    
+              <img src={this.props.primaryImage} alt={this.props.title} class="h-64 w-44"/> 
+              <h2 class="truncate w-44">{this.props.title}</h2>
+              <h3 class="text-gray-200"> <bold class="text-sm">By</bold> {this.props.brand}</h3>
+              <h1 class="text-lg"> R{this.props.price}</h1>
+              <BuyButton></BuyButton>
+              
               
             </article>
 

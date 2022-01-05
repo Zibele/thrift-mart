@@ -3,7 +3,7 @@
         "model": "products.colour",
         "pk": 1,
         "fields": {
-            "colour": "Grey"
+            "colour": "Black"
         }
     },
     {
@@ -17,42 +17,42 @@
         "model": "products.colour",
         "pk": 3,
         "fields": {
-            "colour": "Wash"
+            "colour": "Beige"
         }
     },
     {
         "model": "products.colour",
         "pk": 4,
         "fields": {
-            "colour": "Charcoal"
+            "colour": "Wash"
         }
     },
     {
         "model": "products.colour",
         "pk": 5,
         "fields": {
-            "colour": "Black"
+            "colour": "Cream"
         }
     },
     {
         "model": "products.colour",
         "pk": 6,
         "fields": {
-            "colour": "Beige"
+            "colour": "Grey"
         }
     },
     {
         "model": "products.colour",
         "pk": 7,
         "fields": {
-            "colour": "Cream"
+            "colour": "Blue"
         }
     },
     {
         "model": "products.colour",
         "pk": 8,
         "fields": {
-            "colour": "Blue"
+            "colour": "Charcoal"
         }
     }
 ]
