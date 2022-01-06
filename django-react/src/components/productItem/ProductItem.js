@@ -7,12 +7,14 @@ class ProductItem extends Component {
 
         return (
 
-            <article class="flex flex-col w-48 ">
+            <article class="flex flex-col p-2 items-center w-48 bg-white">
               
               <img src={this.props.primaryImage} alt={this.props.title} class="h-64 w-44"/> 
               <h2 class="truncate w-44">{this.props.title}</h2>
-              <h3 class="text-gray-200"> <bold class="text-sm">By</bold> {this.props.brand}</h3>
-              <h1 class="text-lg"> R{this.props.price}</h1>
+              <div class="flex flex-col w-full">
+                  <a class="text-xs text-blue-600" href="#home">  {this.props.brand}   </a>
+                  <h1 class="text-lg"> R {this.props.price}</h1>
+               </div>   
               <BuyButton></BuyButton>
               
               

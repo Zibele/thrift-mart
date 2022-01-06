@@ -32,7 +32,7 @@ class ProductList extends Component{
 
         return (
             <>
-                <div className="flex flex-col md:justify-between md:px-4 md:flex-row bg-white">
+                <div className="flex flex-col md:justify-between md:p-4 md:flex-row bg-white">
                     <Filter/>
                     <div class = "grid grid-cols-2 gap-2 w-full  items-center md:justify-center md:flex  md:flex-wrap md:py-0 md:flex-row ">
                         {items}

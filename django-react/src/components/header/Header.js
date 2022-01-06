@@ -14,9 +14,9 @@ class Header extends Component {
 
         return (
 
-            <header class ="bg-gray-300 w-full mb-4">
+            <header class ="bg-gray-300 w-full">
 
-                <nav class="flex flex-wrap items-center">
+                <nav class="flex w-full flex-wrap items-center">
 
                     <span class = "m-6"> Logo </span>
 
@@ -27,7 +27,7 @@ class Header extends Component {
                      {this.renderNavButtons()}
                 
                 </nav>
-                </header>
+            </header>
 
             );
 
