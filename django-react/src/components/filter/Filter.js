@@ -23,25 +23,19 @@ class Filter extends Component {
     };
 
 
-
-   
-
-
     render(){
 
         return (
-            <div className="flex flex-col h-full md:w-64 bg-gray-400 ">
+            <div className="flex flex-col w-full lg:h-64 bg-gray-400 ">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
-
         );
 
     }
 
     componentDidMount(){
 
-    
         this.getProductTypes();
 
     }
@@ -89,7 +83,7 @@ class Filter extends Component {
         else{
             filter = (
 
-                <div className="flex flex-col p-4">
+                <div className="flex flex-col w-full p-4">
 
                     <div className="pb-4">Refine by</div>
                     
@@ -104,8 +98,6 @@ class Filter extends Component {
 
 
                 </div>
-
-
 
 
             )
@@ -136,9 +128,6 @@ class Filter extends Component {
 
 
 }
-
-
-
-
+ 
 
 export default Filter;
