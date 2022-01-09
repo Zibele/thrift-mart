@@ -7,7 +7,7 @@ class ProductItem extends Component {
 
         return (
 
-            <article class="flex flex-col py-2 items-center w-44 bg-white">
+            <article class="flex flex-col border-transparent border-2 hover:border-gray-300 py-2 items-center w-44 bg-white">
               
               <img src={this.props.primaryImage} alt={this.props.title} class="h-60 w-40"/> 
               <h2 class="truncate w-40">{this.props.title}</h2>

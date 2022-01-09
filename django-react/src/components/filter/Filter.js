@@ -26,7 +26,7 @@ class Filter extends Component {
     render(){
 
         return (
-            <div className="flex flex-col w-full lg:h-64 bg-gray-400 ">
+            <div className="flex flex-col w-full lg:h-64 ">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
@@ -70,13 +70,16 @@ class Filter extends Component {
        
         if(this.context.isTabletOrMobile){
             filter = (
-                <div className="flex w-full justify-center space-x-4 p-4">
-                    <button className=""> Order by </button>
-                    <div className="w-64">    
-                        <Select options={this.state.productTypes}/>
-                    </div>
-                    <button onClick = {this.togglePriceFilter}>Filter</button>
+                <div className="flex flex-row shadow-xl w-full justify-center bg-gray-50 space-x-4 p-4">
+
+                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-2 px-4 "> Sort </button>
+
+                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-2 px-4 " onClick = {this.togglePriceFilter}>Filter</button>
+
+                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-2 px-4 ">Cart</button>
+
                 </div>
+                
                 );
         }
 

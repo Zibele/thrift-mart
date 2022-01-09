@@ -1,11 +1,14 @@
 
 import axios from "axios";
 import {Component} from "react";
+import ScreenContext from "helpers/Screen";
 import ProductItem from "components/productItem/ProductItem";
 import Filter from "components/filter/Filter";
 import Select from "react-select";
 
 class ProductList extends Component{
+
+    static contextType = ScreenContext;
 
     state = {
         productItems: [],
@@ -33,22 +36,32 @@ class ProductList extends Component{
 
         return (
             <>
-                <div className="flex flex-col lg:flex-row py-2 lg:px-6 bg-white">
-                    <div className="lg:pt-4 lg:w-64 basis-1/4">
-                        <Filter/>
-                    </div>    
-                    <div className="flex flex-col basis-1/2 lg:px-6">
-                        <div className="flex flex-row justify-between w-auto py-2 px-12">
+                <div className="flex flex-col lg:flex-row py-2 lg:px-6 w-full lg:gap-6 lg:grid lg:grid-cols-6 bg-white">
+                    
+                        <div className="flex flex-col w-full lg:pt-4 space-y-1 lg:col-span-1">
                             
-                            <span className="px-2 py-4"> {this.state.productItems.length} items found </span>
-                            <div className="w-64">    
-                                <Select options={this.state.productTypes}/>
+                            <Filter/>
+                            
+                            {this.displayItemQty()}
+
+                        </div>
+
+                        <div className="flex flex-col justify-center w-full lg:col-span-5 lg:px-2">
+                            <div className="flex flex-row justify-between w-auto px-20">
+                                
+                        
+                                <div className="w-64">    
+                                    <Select options={this.state.productTypes}/>
+                                </div>
                             </div>
+                            <div className ="flex flex-row justify-center w-full">
+                                <div class = "flex flex-row justify-center flex-wrap lg:grid lg:grid-cols-5 lg:gap-1  ">
+                                    {items}
+                                </div>
+                            </div>
+                           
                         </div>
-                        <div class = "flex flex-row flex-wrap justify-center w-auto ">
-                            {items}
-                        </div>
-                    </div>    
+                    
                 </div>
             </>
         );
@@ -71,6 +84,23 @@ class ProductList extends Component{
     
     }
 
+
+    displayItemQty = () => {
+
+        let itemQty;
+
+        if(this.context.isTabletOrMobile){
+            console.log("Trying to display itemQty")
+            itemQty = (
+                    <span className="flex flex-row p-4 justify-center w-full bg-gray-100">
+                        {this.state.productItems.length} Results
+                    </span>
+                );
+        }
+
+        return itemQty;
+
+    }
     
 
 }
