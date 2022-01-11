@@ -2,7 +2,11 @@ import React from "react";
 
 
 const context = React.createContext({
-    isTabletOrMobile:null,
+    isSmallScreen:null,
+    isExtraSmallScreen:null,
+    isMediumScreen:null,
+    isLargeScreen:null,
+    isExtraLargeScreen:null,
 });
 
 export default context;

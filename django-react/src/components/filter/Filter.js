@@ -19,7 +19,6 @@ class Filter extends Component {
         category: 0,
         filterIsOpen: false,
         radioValue: '0'
-
     };
 
 
@@ -68,18 +67,19 @@ class Filter extends Component {
         
         let filter;
        
-        if(this.context.isTabletOrMobile){
+        if(this.context.isMediumScreen){
             filter = (
-                <div className="flex flex-row shadow-xl w-full justify-center bg-gray-50 space-x-4 p-4">
+                 
+                        <div className="flex flex-row w-full justify-center space-x-1 lg:space-x-4 py-4 md:col-span-3">
 
-                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-2 px-4 "> Sort </button>
+                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 "> Sort </button>
 
-                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-2 px-4 " onClick = {this.togglePriceFilter}>Filter</button>
+                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 " onClick = {this.togglePriceFilter}>Filter</button>
 
-                    <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-2 px-4 ">Cart</button>
+                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-1 px-2 ">Cart</button>
 
-                </div>
-                
+                        </div>
+                  
                 );
         }
 
@@ -120,7 +120,7 @@ class Filter extends Component {
 
         let itemFilter;
      
-        if((this.state.filterIsOpen && this.context.isTabletOrMobile)||!this.context.isTabletOrMobile){
+        if((this.state.filterIsOpen && this.context.isMediumScreen)||!this.context.isMediumScreen){
 
             itemFilter = (<PriceFilter/>);
 
@@ -129,6 +129,23 @@ class Filter extends Component {
         return itemFilter;
     }
 
+    displayProductCount = () => {
+
+        let productCount;
+        
+        if(this.context.isMediumScreen && !this.context.isExtraSmallScreen){
+
+            productCount = (
+                            
+                                <span className="w-full mt-6 bg-blue-black">{this.props.productQty || 0} Items found </span>
+                                
+    
+                        );
+        }
+
+        return productCount;
+
+}
 
 }
  

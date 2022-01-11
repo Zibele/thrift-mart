@@ -12,13 +12,15 @@ class Header extends Component {
 
     render(){
 
+
+
         return (
 
             <header class ="bg-gray-300 w-full">
 
-                <nav class="flex w-full flex-wrap items-center">
+                <nav class="flex w-full px-2 py-4 lg:px-4 flex-wrap items-center">
 
-                    <span class = "m-6"> Logo </span>
+                    <span class = ""> Logo </span>
 
                     <div class = "flex-grow"></div>
                         
@@ -36,12 +38,12 @@ class Header extends Component {
 
     renderHeaderMenuButton = () => {
         let headerMenuButton;
-        if(this.context.isTabletOrMobile){
+        if(this.context.isMediumScreen || this.context.isSmallScreen){
             if(this.state.showHeaderMenu) {
 
                 headerMenuButton = ( 
 
-                    <button onClick={this.hideHeaderMenu} class="w-8 h-8 mr-4"> 
+                    <button onClick={this.hideHeaderMenu} class="w-8 h-8"> 
                 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -53,7 +55,7 @@ class Header extends Component {
 
                 headerMenuButton = ( 
 
-                    <button onClick={this.showHeaderMenu} class="w-8 h-8 mr-4"> 
+                    <button onClick={this.showHeaderMenu} class="w-8 h-8"> 
                 
                     <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
@@ -69,10 +71,10 @@ class Header extends Component {
 
         let navButtons;
 
-        if(!this.context.isTabletOrMobile || (this.context.isTabletOrMobile && this.state.showHeaderMenu)){
+        if((!this.context.isMediumScreen) || (this.context.isMediumScreen && this.state.showHeaderMenu)){
           
            
-           navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center bg-gray-200 py-3 lg:w-auto lg:mr-4 lg:bg-gray-300  lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
+           navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center bg-gray-200 py-3 lg:w-auto lg:bg-gray-300  lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
             
                             <li> <a class=" border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#About"> About      </a> </li>
                             
