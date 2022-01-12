@@ -25,7 +25,7 @@ class Filter extends Component {
     render(){
 
         return (
-            <div className="flex flex-col w-full lg:h-64 ">
+            <div className="flex flex-col bg-gray-400 w-full lg:h-64 ">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
