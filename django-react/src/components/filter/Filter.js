@@ -16,7 +16,11 @@ class Filter extends Component {
 
     state = {
         productTypes: [],
+        brands: [],
+        colours: [],
+        sizes: [],
         category: 0,
+        displayOption:{brands:false,colours:false,sizes:false},
         filterIsOpen: false,
         radioValue: '0'
     };
@@ -36,6 +40,9 @@ class Filter extends Component {
     componentDidMount(){
 
         this.getProductTypes();
+        this.getBrands();
+        this.getColours();
+        this.getSizes();
 
     }
 
@@ -55,6 +62,29 @@ class Filter extends Component {
 
     }
 
+    getColours = () =>{
+
+        axios.get("api/colours")
+             .then(res => this.setState({colours:res.data}))
+             .catch(err=>console.log(err));
+
+    }
+
+    getSizes = () => {
+
+        axios.get("api/sizes")
+             .then(res=>this.setState({sizes:res.data}))
+             .catch(err=>console.log(err))
+
+    }
+
+    getBrands = () => {
+
+        axios.get("api/brands")
+             .then(res=>this.setState({sizes:res.data}))
+             .catch(err=>console.log(err))
+
+    }
 
 
     togglePriceFilter = () => {
@@ -89,17 +119,42 @@ class Filter extends Component {
                 <div className="flex flex-col w-full p-4">
 
                     <div className="pb-4">Refine by</div>
+                    <div className="hidden">
+                        <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
+
+                            <Stack direction="column">
+                                <Radio value='0'>All</Radio>
+                                {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
+                            </Stack>
+
+                        </RadioGroup>
+                    </div>    
+
+                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("brand")}>
+                        
+                        <span> Brand </span>
+
+                        {this.showToggleIcon(this.state.displayOption.brands)}
                     
-                    <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
+                    </button>
+                    
+                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("colour")}>
+                        
+                        <span> Colour </span>
 
-                        <Stack direction="column">
-                            <Radio value='0'>All</Radio>
-                            {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
-                        </Stack>
+                        {this.showToggleIcon(this.state.displayOption.colours)}
+                        
+                        
+                    </button>
 
-                    </RadioGroup>
+                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("size")}>
+                        
+                        <span> Size </span>
 
-
+                        {this.showToggleIcon(this.state.displayOption.sizes)}
+                        
+                    </button> 
+                    
                 </div>
 
 
@@ -136,16 +191,52 @@ class Filter extends Component {
         if(this.context.isMediumScreen && !this.context.isExtraSmallScreen){
 
             productCount = (
-                            
-                                <span className="w-full mt-6 bg-blue-black">{this.props.productQty || 0} Items found </span>
-                                
-    
+                            <span className="w-full mt-6 bg-blue-black">{this.props.productQty || 0} Items found </span>
                         );
         }
 
         return productCount;
 
-}
+    }
+
+
+    toggleDisplayOption = (option) => {
+
+        switch(option){
+
+            case "size":
+                this.state.displayOption.sizes ? this.setState({displayOption:{sizes:false,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands}}) : this.setState({displayOption:{sizes:true,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands}});
+                break;
+            
+            case "colour":
+                this.state.displayOption.colours ? this.setState({displayOption:{colours:false,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands}}) : this.setState({displayOption:{colours:true,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands}});
+                break;
+            
+            case "brand":
+                this.state.displayOption.brands ? this.setState({displayOption:{brands:false,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}}) : this.setState({displayOption:{brands:true,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}});
+                break;
+            
+            default:
+                console.log(`Toggle option:${option}`)    
+
+        }
+       
+
+        
+    }
+
+    showToggleIcon = (option) =>{
+        
+        return option ? 
+                        (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                         </svg>)
+                      :
+                        (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>);  
+
+    }
 
 }
  
