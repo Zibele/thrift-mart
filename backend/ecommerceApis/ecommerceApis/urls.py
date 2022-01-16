@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from products.views import ProductAPIView,ProductTypeAPIView
+from products.views import ProductAPIView,ProductTypeAPIView,BrandAPIView,ColourAPIView,SizeAPIView
 from orders.views import OrderAPIView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -24,5 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/products',ProductAPIView.as_view(), name = "product-list" ),
     path('api/orders',OrderAPIView.as_view(), name = "order-list"),
-    path('api/productTypes',ProductTypeAPIView.as_view(), name="product-type-list")
+    path('api/productTypes',ProductTypeAPIView.as_view(), name="product-type-list"),
+    path('api/brands',BrandAPIView.as_view(), name = "brand-list"),
+    path('api/colours',ColourAPIView.as_view(), name = "colour-list"),
+    path('api/sizes',SizeAPIView.as_view(), name="size-list")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

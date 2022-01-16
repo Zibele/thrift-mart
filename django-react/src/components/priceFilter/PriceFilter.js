@@ -30,7 +30,7 @@ class PriceFilter extends Component {
 
         return (
 
-            <div className = "flex flex-col px-4 pb-4">
+            <div className = "flex flex-col pb-4">
                     <div className = "">
                         <RangeSlider aria-label={['min', 'max']} defaultValue={[0,500]} step={25} min={0} max={500} onChangeEnd = {(val) => this.updateSelectedPrices(val)}>
                             

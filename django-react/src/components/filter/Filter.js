@@ -20,16 +20,18 @@ class Filter extends Component {
         colours: [],
         sizes: [],
         category: 0,
-        displayOption:{brands:false,colours:false,sizes:false},
+        displayOption:{brands:false,colours:false,sizes:false,prices:false},
         filterIsOpen: false,
-        radioValue: '0'
+        brandRadioValue: '0',
+        colourRadioValue: '0',
+        sizeRadioValue: '0',
     };
 
 
     render(){
 
         return (
-            <div className="flex flex-col bg-gray-400 w-full lg:h-64 ">
+            <div className="flex flex-col p-4 bg-gray-400 w-full  ">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
@@ -65,7 +67,14 @@ class Filter extends Component {
     getColours = () =>{
 
         axios.get("api/colours")
-             .then(res => this.setState({colours:res.data}))
+             .then(res =>{
+                let colours = []
+                for(let colour of res.data){
+                    colours.push({value:colour.id,label:colour.colour})
+                }
+                this.setState({colours:colours})
+             }
+             )
              .catch(err=>console.log(err));
 
     }
@@ -73,7 +82,14 @@ class Filter extends Component {
     getSizes = () => {
 
         axios.get("api/sizes")
-             .then(res=>this.setState({sizes:res.data}))
+             .then(res=>{
+                    let sizes = []
+                    for(let size of res.data){
+                        sizes.push({value:size.id,label:size.size});
+                    }
+                    this.setState({sizes:sizes})
+                }
+                 )
              .catch(err=>console.log(err))
 
     }
@@ -81,7 +97,17 @@ class Filter extends Component {
     getBrands = () => {
 
         axios.get("api/brands")
-             .then(res=>this.setState({sizes:res.data}))
+             .then(res=>{
+                    let brands = [];
+                    
+                    for(let brand of res.data){
+                        
+                        brands.push({value:brand.id,label:brand.brand})
+                    }
+                
+                    this.setState({brands:brands})
+                    }
+                )    
              .catch(err=>console.log(err))
 
     }
@@ -116,44 +142,56 @@ class Filter extends Component {
         else{
             filter = (
 
-                <div className="flex flex-col w-full p-4">
+                <div className="flex flex-col w-full">
 
                     <div className="pb-4">Refine by</div>
-                    <div className="hidden">
-                        <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
+                      
 
-                            <Stack direction="column">
-                                <Radio value='0'>All</Radio>
-                                {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
-                            </Stack>
-
-                        </RadioGroup>
-                    </div>    
-
-                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("brand")}>
+                    <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("brand")}>
                         
-                        <span> Brand </span>
+                        <span className="uppercase"> Brand </span>
 
                         {this.showToggleIcon(this.state.displayOption.brands)}
+
                     
                     </button>
+
+                    {this.renderRadioBtns(this.state.displayOption.brands,this.state.brands,"brandRadioValue",this.state.brandRadioValue,this.setBrandRadioValue)}
+
+
+                
                     
-                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("colour")}>
+                    <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("colour")}>
                         
-                        <span> Colour </span>
+                        <span className="uppercase"> Colour </span>
 
                         {this.showToggleIcon(this.state.displayOption.colours)}
                         
                         
                     </button>
 
-                    <button className="w-full flex flex-row" onClick={()=>this.toggleDisplayOption("size")}>
+                    {this.renderRadioBtns(this.state.displayOption.colours,this.state.colours,"colourRadioValue",this.state.colourRadioValue,this.setColourRadioValue)}
+
+                    <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("size")}>
                         
-                        <span> Size </span>
+                        <span className="uppercase"> Size </span>
 
                         {this.showToggleIcon(this.state.displayOption.sizes)}
                         
                     </button> 
+
+                    {this.renderRadioBtns(this.state.displayOption.sizes,this.state.sizes,"sizeRadioValue",this.state.sizeRadioValue,this.setSizeRadioValue)}
+
+                    <button className="w-full flex flex-row justify-between border-b-2 border-t-2 mt-2" onClick={()=>this.toggleDisplayOption("price")}>
+                        
+                        <span className="uppercase"> Price </span>
+
+                        {this.showToggleIcon(this.state.displayOption.prices)}
+                        
+                    </button> 
+
+
+                   
                     
                 </div>
 
@@ -163,19 +201,36 @@ class Filter extends Component {
         return filter;
     }
 
-    setRadioValue = (name,value) =>{
-
-        console.log(`Trying to change ${name} for ${value}`);
-
-        this.setState({radioValue:value});
-        
-        
+    setBrandRadioValue = (val) =>{
+        console.log("Brand radio value");
+        this.setState({brandRadioValue:val});
     }
+
+    getBrandRadioValue  = () =>{
+        console.log("Get brand radio value");
+        return this.state.brandRadioValue
+    }
+
+    setColourRadioValue = (val) =>{
+
+        this.setState({colourRadioValue:val});
+          
+    }
+
+    setSizeRadioValue = (val) =>{
+
+        console.log(`Value ${val}`);
+
+        this.setState({sizeRadioValue:val});
+          
+    }
+
+
     renderPriceFilter = () => {
 
         let itemFilter;
      
-        if((this.state.filterIsOpen && this.context.isMediumScreen)||!this.context.isMediumScreen){
+        if(this.state.displayOption.prices){
 
             itemFilter = (<PriceFilter/>);
 
@@ -205,16 +260,22 @@ class Filter extends Component {
         switch(option){
 
             case "size":
-                this.state.displayOption.sizes ? this.setState({displayOption:{sizes:false,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands}}) : this.setState({displayOption:{sizes:true,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands}});
+                this.state.displayOption.sizes ? this.setState({displayOption:{sizes:false,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands,prices:this.state.displayOption.prices}}) : this.setState({displayOption:{sizes:true,colours:this.state.displayOption.colours,brands:this.state.displayOption.brands,prices:this.state.displayOption.prices}});
                 break;
             
             case "colour":
-                this.state.displayOption.colours ? this.setState({displayOption:{colours:false,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands}}) : this.setState({displayOption:{colours:true,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands}});
+                this.state.displayOption.colours ? this.setState({displayOption:{colours:false,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands,prices:this.state.displayOption.prices}}) : this.setState({displayOption:{colours:true,sizes:this.state.displayOption.sizes,brands:this.state.displayOption.brands,prices:this.state.displayOption.prices}});
                 break;
             
             case "brand":
-                this.state.displayOption.brands ? this.setState({displayOption:{brands:false,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}}) : this.setState({displayOption:{brands:true,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}});
+                this.state.displayOption.brands ? this.setState({displayOption:{brands:false,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours,prices:this.state.displayOption.prices}}) : this.setState({displayOption:{brands:true,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours,prices:this.state.displayOption.prices}});
                 break;
+
+            case "price":
+                this.state.displayOption.prices ? this.setState({displayOption:{prices:false,brands:this.state.displayOption.brands,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}}) : this.setState({displayOption:{prices:true,brands:this.state.displayOption.brands,sizes:this.state.displayOption.sizes,colours:this.state.displayOption.colours}});
+                break;
+
+
             
             default:
                 console.log(`Toggle option:${option}`)    
@@ -229,16 +290,54 @@ class Filter extends Component {
         
         return option ? 
                         (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                         </svg>)
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
+                        </svg>)
                       :
                         (<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>);  
 
     }
 
+    renderRadioBtns = (canRender,items,radioValue,currentValue,setter) => {
+        
+        let radioButtons;
+        if(canRender){
+            
+            radioButtons = (
+                            <div className="w-full">
+
+                                            <RadioGroup onChange={setter.bind(radioValue)} value={currentValue}>
+
+                                                <Stack direction="column">  
+                                                    <Radio value='0'>All</Radio>
+                                                    {items.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
+                                                </Stack>
+
+                                            </RadioGroup>
+
+
+                            </div>)
+
+    }
+
+    return radioButtons;
+
 }
- 
+
+/*  <div className="hidden">
+                        <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
+
+                            <Stack direction="column">
+                                <Radio value='0'>All</Radio>
+                                {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
+                            </Stack>
+
+                        </RadioGroup>
+                    </div>*/
+
+
+
+}
 
 export default Filter;
