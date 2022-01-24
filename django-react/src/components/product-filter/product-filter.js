@@ -1,8 +1,8 @@
 import {Component} from "react";
 import ScreenContext from "helpers/Screen";
-import Select from "react-select";
-import PriceFilter from "components/priceFilter/PriceFilter";
+import PriceFilter from "components/price-filter/price-filter";
 import axios from "axios";
+
 import {
         RadioGroup,
         Stack,
@@ -23,7 +23,7 @@ class Filter extends Component {
         displayOption:{brands:false,colours:false,sizes:false,prices:false},
         filterIsOpen: false,
         brandRadioValue: '0',
-        colourRadioValue: '0',
+        colourRadioValue:'0',
         sizeRadioValue: '0',
     };
 
@@ -31,7 +31,7 @@ class Filter extends Component {
     render(){
 
         return (
-            <div className="flex flex-col p-4 bg-gray-400 w-full  ">
+            <div className="flex flex-col p-4 bg-gray-400 w-full">
                 {this.renderFilter()}
                 {this.renderPriceFilter()}
             </div>
@@ -144,7 +144,9 @@ class Filter extends Component {
 
                 <div className="flex flex-col w-full">
 
-                    <div className="pb-4">Refine by</div>
+                    <div className="pb-4 border-b-2 border-white ">Filter by</div>
+
+                    {this.displayFilteredItems()}
                       
 
                     <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("brand")}>
@@ -153,14 +155,11 @@ class Filter extends Component {
 
                         {this.showToggleIcon(this.state.displayOption.brands)}
 
-                    
                     </button>
 
                     {this.renderRadioBtns(this.state.displayOption.brands,this.state.brands,"brandRadioValue",this.state.brandRadioValue,this.setBrandRadioValue)}
 
 
-                
-                    
                     <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("colour")}>
                         
                         <span className="uppercase"> Colour </span>
@@ -189,10 +188,7 @@ class Filter extends Component {
                         {this.showToggleIcon(this.state.displayOption.prices)}
                         
                     </button> 
-
-
-                   
-                    
+ 
                 </div>
 
 
@@ -201,9 +197,11 @@ class Filter extends Component {
         return filter;
     }
 
-    setBrandRadioValue = (val) =>{
+    setBrandRadioValue = (value) =>{
         console.log("Brand radio value");
-        this.setState({brandRadioValue:val});
+        this.props.addToCount();
+        this.setState({brandRadioValue:value});
+
     }
 
     getBrandRadioValue  = () =>{
@@ -211,18 +209,23 @@ class Filter extends Component {
         return this.state.brandRadioValue
     }
 
-    setColourRadioValue = (val) =>{
+    setColourRadioValue = (value) =>{
 
-        this.setState({colourRadioValue:val});
+        this.setState({colourRadioValue:value});
           
     }
 
-    setSizeRadioValue = (val) =>{
+    setSizeRadioValue = (value) =>{
 
-        console.log(`Value ${val}`);
+        this.setState({sizeRadioValue:value});
 
-        this.setState({sizeRadioValue:val});
-          
+        
+    }
+
+    removeSizeFromFilter = () => {
+
+        this.setState({sizeRadioValue:'0'})
+        
     }
 
 
@@ -299,6 +302,25 @@ class Filter extends Component {
 
     }
 
+    displayFilteredItems = () => {
+        let filteredItems;
+
+        if(this.state.brandRadioValue !== "0" || this.state.sizeRadioValue !== "0" || this.state.colourRadioValue !== "0"){
+
+             filteredItems = (
+                                    <div className="flex flex-col">
+                                        {this.state.brandRadioValue !== "0" && (<span>Brand: {this.state.brands.find(elem => elem.value.toString() === this.state.brandRadioValue).label} </span>)}
+                                        {this.state.colourRadioValue !== "0" && (<span>Colour: {this.state.colours.find(elem => elem.value.toString() === this.state.colourRadioValue).label}</span>)}
+                                        {this.state.sizeRadioValue !== "0" && (<span>Size: {this.state.sizes.find(elem => elem.value.toString() === this.state.sizeRadioValue).label}</span>)}
+                                    </div>
+                            )
+
+        }
+
+        return filteredItems;
+
+
+    }
     renderRadioBtns = (canRender,items,radioValue,currentValue,setter) => {
         
         let radioButtons;

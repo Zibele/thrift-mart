@@ -8,7 +8,6 @@ class BuyButton extends Component {
             
             <button class="bg-transparent hover:bg-blue-500 text-blue-700 w-40 border-2 border-blue-500"> Add to cart </button>
             
-        
         );
     }
 

@@ -2,8 +2,8 @@
 import axios from "axios";
 import {Component} from "react";
 import ScreenContext from "helpers/Screen";
-import ProductItem from "components/productItem/ProductItem";
-import Filter from "components/filter/Filter";
+import ProductItem from "components/product-item/product-item";
+import Filter from "components/product-filter/product-filter";
 import Select from "react-select";
 
 class ProductList extends Component{
@@ -12,7 +12,8 @@ class ProductList extends Component{
 
     state = {
         productItems: [],
-        categoryItems: []
+        categoryItems: [],
+        count: 0
     }
 
     render(){
@@ -29,7 +30,6 @@ class ProductList extends Component{
                 primaryImage = {item.primary_image}
                 secondaryImage = {item.secondary_image}
                 brand = {brandName}
-
             />    
         }
         )
@@ -40,7 +40,7 @@ class ProductList extends Component{
                     
                         <div className="flex flex-col w-full lg:pt-4 lg:col-span-2">
                             
-                            <Filter productQty={this.state.productItems.length}/>
+                            <Filter productQty={this.state.productItems.length} addToCount={this.addToCount}/>
                             
                             {this.displayItemQty()}
 
@@ -79,6 +79,12 @@ class ProductList extends Component{
             .then((res)=>this.setState({productItems:res.data}))
             .catch((err)=>console.log(err));
     
+    }
+
+    getFilteredList(brand,colour,size,price){
+
+        
+
     }
 
     displayItemTypeSelect = () => {
@@ -138,7 +144,15 @@ class ProductList extends Component{
         return itemQty;
 
     }
-    
+   
+    addToCount = () => {
+
+        let count = this.state.count + 1;
+
+        this.setState({count:count});
+
+        console.log(this.state.count);
+    }
 
 }
 

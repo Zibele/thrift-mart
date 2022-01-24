@@ -47,13 +47,17 @@ INSTALLED_APPS = [
     #3rd party apps
     'rest_framework',
     
+    
+
     #project apps
     'products',
     'profiles',
     'orders',
     'locations',
     'corsheaders',
-    'django_rename_app'
+    'django_rename_app',
+    'django_filters'
+    
 ]
 
 MIDDLEWARE = [

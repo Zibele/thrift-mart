@@ -27,5 +27,5 @@ urlpatterns = [
     path('api/productTypes',ProductTypeAPIView.as_view(), name="product-type-list"),
     path('api/brands',BrandAPIView.as_view(), name = "brand-list"),
     path('api/colours',ColourAPIView.as_view(), name = "colour-list"),
-    path('api/sizes',SizeAPIView.as_view(), name="size-list")
+    path('api/sizes',SizeAPIView.as_view(), name="size-list"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

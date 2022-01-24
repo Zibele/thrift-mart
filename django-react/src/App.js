@@ -1,7 +1,7 @@
 import React from "react";      
-import Header from "components/header/Header";
-import ProductList from "components/productList/ProductList";
-import Footer from "components/footer/Footer";
+import Header from "components/header/header";
+import ProductList from "components/product-list/product-list";
+import Footer from "components/footer/footer";
 import {useMediaQuery} from "react-responsive";
 import ScreenContext from "helpers/Screen";
 

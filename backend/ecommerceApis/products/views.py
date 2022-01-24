@@ -2,10 +2,26 @@ from django.shortcuts import render
 from rest_framework import generics
 from products.models import Product,ProductType,Brand,Colour,Size
 from products.serializers import ProductSerializer,ProductTypeSerializer,ProductBrandSerializer,ProductSizeSerializer,ProductColourSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
+
+
+
+
+class ProductFilter(filters.FilterSet):
+    min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
+    max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+
+    class Meta:
+        model = Product
+        fields = ['brand','colour','size']    
+
 
 class ProductAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all().select_related("product_type")
     serializer_class = ProductSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProductFilter
 
 class ProductTypeAPIView(generics.ListCreateAPIView):
     queryset = ProductType.objects.all()
@@ -22,3 +38,7 @@ class ColourAPIView(generics.ListCreateAPIView):
 class SizeAPIView(generics.ListCreateAPIView):
     queryset = Size.objects.all()
     serializer_class=ProductSizeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields= ['id','size']
+
+
