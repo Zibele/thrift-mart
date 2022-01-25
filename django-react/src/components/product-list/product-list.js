@@ -6,6 +6,7 @@ import ProductItem from "components/product-item/product-item";
 import Filter from "components/product-filter/product-filter";
 import Select from "react-select";
 
+
 class ProductList extends Component{
 
     static contextType = ScreenContext;
@@ -13,7 +14,6 @@ class ProductList extends Component{
     state = {
         productItems: [],
         categoryItems: [],
-        count: 0
     }
 
     render(){
@@ -40,7 +40,7 @@ class ProductList extends Component{
                     
                         <div className="flex flex-col w-full lg:pt-4 lg:col-span-2">
                             
-                            <Filter productQty={this.state.productItems.length} addToCount={this.addToCount}/>
+                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList}/>
                             
                             {this.displayItemQty()}
 
@@ -81,12 +81,25 @@ class ProductList extends Component{
     
     }
 
-    getFilteredList(brand,colour,size,price){
+    filterProductList = (brand,colour,size,minPrice,maxPrice) => {
+
+        let filters = {brand: brand && brand !=='0' ? brand : '',
+                       colour: colour && colour !=='0'? colour : '',
+                       size: size && size !=='0'? size : '',
+                       min_price:minPrice? minPrice:'',max_price:maxPrice? maxPrice:''}
 
         
+        const params = new URLSearchParams(filters);
+        console.log(`api/products?${params}`);
+        axios
+            .get(`api/products?${params}`)
+            .then((res)=>this.setState({productItems:res.data}))
+            .catch((err)=>console.log(err));
 
+        
     }
 
+   
     displayItemTypeSelect = () => {
 
         let typeSelect;
@@ -145,14 +158,7 @@ class ProductList extends Component{
 
     }
    
-    addToCount = () => {
 
-        let count = this.state.count + 1;
-
-        this.setState({count:count});
-
-        console.log(this.state.count);
-    }
 
 }
 

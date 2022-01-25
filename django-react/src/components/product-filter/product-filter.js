@@ -25,6 +25,8 @@ class Filter extends Component {
         brandRadioValue: '0',
         colourRadioValue:'0',
         sizeRadioValue: '0',
+        minPrice:'0',
+        maxPrice:'2000'
     };
 
 
@@ -199,8 +201,10 @@ class Filter extends Component {
 
     setBrandRadioValue = (value) =>{
         console.log("Brand radio value");
-        this.props.addToCount();
+        
         this.setState({brandRadioValue:value});
+
+        this.props.filterProductList(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
 
     }
 
@@ -212,12 +216,17 @@ class Filter extends Component {
     setColourRadioValue = (value) =>{
 
         this.setState({colourRadioValue:value});
+
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
           
     }
 
     setSizeRadioValue = (value) =>{
 
         this.setState({sizeRadioValue:value});
+
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
+          
 
         
     }
@@ -235,7 +244,7 @@ class Filter extends Component {
      
         if(this.state.displayOption.prices){
 
-            itemFilter = (<PriceFilter/>);
+            itemFilter = (<PriceFilter updatePrices={this.updatePrices} minPrice={this.state.minPrice} maxPrice={this.state.maxPrice}/>);
 
         }
 
@@ -255,6 +264,13 @@ class Filter extends Component {
 
         return productCount;
 
+    }
+
+    updatePrices = (min,max) =>{
+        this.setState({min_price:min,max_price:max});
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.min_price,this.state.max_price);
+          
+        
     }
 
 

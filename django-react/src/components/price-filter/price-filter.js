@@ -15,13 +15,10 @@ class PriceFilter extends Component {
 
 
     state = {
-        priceRange: {
-            min:0,
-            max:500
-        },
+     
         selectedPrice:{
             min:0,
-            max:500
+            max:2000
         },
         
     }
@@ -32,7 +29,7 @@ class PriceFilter extends Component {
 
             <div className = "flex flex-col pb-4">
                     <div className = "">
-                        <RangeSlider aria-label={['min', 'max']} defaultValue={[0,500]} step={25} min={0} max={500} onChangeEnd = {(val) => this.updateSelectedPrices(val)}>
+                        <RangeSlider aria-label={['min', 'max']} defaultValue={[this.props.minPrice,this.props.maxPrice]} step={25} min={this.props.minPrice} max={this.props.maxPrice} onChangeEnd = {(val) => this.updateSelectedPrices(val)}>
                             
                             <RangeSliderTrack>
                                     <RangeSliderFilledTrack/>
@@ -61,6 +58,7 @@ class PriceFilter extends Component {
         console.log(val);
         const selectedPrice = {min:val[0],max:val[1]};
         this.setState({selectedPrice:selectedPrice});
+        this.props.updatePrices(val[0],val[1]);
     }
 
 
