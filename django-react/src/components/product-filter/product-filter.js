@@ -217,7 +217,7 @@ class Filter extends Component {
 
         this.setState({colourRadioValue:value});
 
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
+        this.props.filterProductList(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
           
     }
 
@@ -225,7 +225,7 @@ class Filter extends Component {
 
         this.setState({sizeRadioValue:value});
 
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice);
           
 
         

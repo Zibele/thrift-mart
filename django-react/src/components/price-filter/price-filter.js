@@ -29,7 +29,7 @@ class PriceFilter extends Component {
 
             <div className = "flex flex-col pb-4">
                     <div className = "">
-                        <RangeSlider aria-label={['min', 'max']} defaultValue={[this.props.minPrice,this.props.maxPrice]} step={25} min={this.props.minPrice} max={this.props.maxPrice} onChangeEnd = {(val) => this.updateSelectedPrices(val)}>
+                        <RangeSlider aria-label={['min', 'max']} defaultValue={[0,2000]} step={25} min={0} max={2000} onChangeEnd = {(val) => this.updateSelectedPrices(val)}>
                             
                             <RangeSliderTrack>
                                     <RangeSliderFilledTrack/>

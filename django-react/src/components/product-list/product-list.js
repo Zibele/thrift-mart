@@ -11,15 +11,17 @@ class ProductList extends Component{
 
     static contextType = ScreenContext;
 
+
     state = {
         productItems: [],
         categoryItems: [],
+        orderTypes:[{value:'latest',label:'Latest',},{value:'lowest price',label:'Lowest Price',},{value:'highest price',label:'Highest Price',}],
+        selectedOrderOption:null
     }
 
     render(){
       
         const items = this.state.productItems.map((item) => {
-        
         
         let brandName = item.brand != null ? item.brand['brand'] : "None" 
             
@@ -38,7 +40,7 @@ class ProductList extends Component{
             <>
                 <div className="flex flex-col justify-center lg:flex-row w-full lg:grid lg:grid-cols-11 lg:px-4 bg-white">
                     
-                        <div className="flex flex-col w-full lg:pt-4 lg:col-span-2">
+                        <div className="flex flex-col w-full lg:pt-4 lg:col-span-2 ">
                             
                             <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList}/>
                             
@@ -46,10 +48,10 @@ class ProductList extends Component{
 
                         </div>
 
-                        <div className="flex flex-col justify-center w-full lg:col-span-9 bg-white ">
+                        <div className="flex flex-col w-full lg:col-span-9 bg-white">
                            
                             
-                            <div className ="flex flex-row justify-center">
+                            <div className ="flex flex-row justify-center ">
                                 <div class = "flex flex-row justify-center flex-wrap lg:grid lg:grid-cols-4 xl:grid-cols-6">
                                     {this.displayListTopBar()}
                                     {items}
@@ -82,7 +84,7 @@ class ProductList extends Component{
     }
 
     filterProductList = (brand,colour,size,minPrice,maxPrice) => {
-
+        console.log(`Size ${size},Brand ${brand}, Colour ${colour}`);
         let filters = {brand: brand && brand !=='0' ? brand : '',
                        colour: colour && colour !=='0'? colour : '',
                        size: size && size !=='0'? size : '',
@@ -106,7 +108,7 @@ class ProductList extends Component{
 
         typeSelect = (<div className="flex flex-row justify-between w-auto px-20">
                             <div className="w-64">    
-                                <Select options={this.state.productTypes}/>
+                                <Select options={this.state.orderTypes}/>
                             </div>
                      </div>);
 
@@ -127,7 +129,7 @@ class ProductList extends Component{
                         
                         <span>{this.state.productItems.length} Results</span>
                         <div className="w-64">    
-                            <Select options={this.state.productTypes}/>
+                            <Select placeholder="Order by" options={this.state.orderTypes} value={this.state.selectedOrderOption} onChange={this.orderSelectChange}/>
                         </div>
 
                     </div>
@@ -139,6 +141,58 @@ class ProductList extends Component{
         return topBar;
 
     }
+
+    orderSelectChange = (selection) => {
+
+    
+        this.setState({selectedOrderOption:selection})
+
+        this.sortProductList(selection)
+
+
+    }
+
+    sortProductList = (selection) =>{
+
+       let productItems = this.state.productItems;
+       console.log(selection.value);
+
+       if(selection.value === "lowest price"){
+
+            console.log("lowest price");
+
+            productItems = productItems.sort((a,b)=>{
+                return a.price - b.price;
+            })
+
+            console.log(productItems);
+        }
+        else if(selection.value === "highest price"){
+            console.log("highest");
+            productItems.sort((a,b)=>{
+                return  b.price - a.price ;
+            })
+
+            console.log(productItems);
+        }
+        else{
+            console.log("latest");
+            productItems.sort((a,b)=>{
+                return  new Date(b.date_posted) - new Date(a.date_posted);
+            })
+
+            console.log(productItems);
+
+        }
+        
+        this.setState({productItems:productItems})
+
+       }
+
+         
+
+    
+
 
 
     displayItemQty = () => {
