@@ -15,8 +15,8 @@ class ProductList extends Component{
     state = {
         productItems: [],
         categoryItems: [],
-        orderTypes:[{value:'latest',label:'Latest',},{value:'lowest price',label:'Lowest Price',},{value:'highest price',label:'Highest Price',}],
-        selectedOrderOption:null
+        orderTypes:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
+        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:''}
     }
 
     render(){
@@ -42,15 +42,13 @@ class ProductList extends Component{
                     
                         <div className="flex flex-col w-full lg:pt-4 lg:col-span-2 ">
                             
-                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList}/>
+                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters}/>
                             
                             {this.displayItemQty()}
 
                         </div>
 
                         <div className="flex flex-col w-full lg:col-span-9 bg-white">
-                           
-                            
                             <div className ="flex flex-row justify-center ">
                                 <div class = "flex flex-row justify-center flex-wrap lg:grid lg:grid-cols-4 xl:grid-cols-6">
                                     {this.displayListTopBar()}
@@ -83,12 +81,15 @@ class ProductList extends Component{
     
     }
 
-    filterProductList = (brand,colour,size,minPrice,maxPrice) => {
-        console.log(`Size ${size},Brand ${brand}, Colour ${colour}`);
+    filterProductList = (brand,colour,size,minPrice,maxPrice,ordering) => {
+
         let filters = {brand: brand && brand !=='0' ? brand : '',
                        colour: colour && colour !=='0'? colour : '',
                        size: size && size !=='0'? size : '',
-                       min_price:minPrice? minPrice:'',max_price:maxPrice? maxPrice:''}
+                       min_price:minPrice? minPrice:'',
+                       max_price:maxPrice? maxPrice:'',
+                       ordering: ordering? ordering:'-date_posted',
+                    }
 
         
         const params = new URLSearchParams(filters);
@@ -142,56 +143,23 @@ class ProductList extends Component{
 
     }
 
-    orderSelectChange = (selection) => {
+    orderSelectChange = (ordering) => {
 
+        let productFilters = this.state.productFilters;
+
+        productFilters.ordering = ordering.value;
     
-        this.setState({selectedOrderOption:selection})
+        this.setState({productFilters:productFilters});
 
-        this.sortProductList(selection)
+        this.filterProductList(this.state.productFilters.brand,this.state.productFilters.colour,this.state.productFilters.size,this.state.productFilters.minPrice,this.state.productFilters.maxPrice,ordering.value)
 
 
     }
 
-    sortProductList = (selection) =>{
+    updateProductFilters = (brand,colour,size,minPrice,maxPrice,ordering) => {
+        this.setState({productFilters:{brand:brand,colour:colour,size:size,minPrice:minPrice,maxPrice:maxPrice,ordering:ordering}});
+    }
 
-       let productItems = this.state.productItems;
-       console.log(selection.value);
-
-       if(selection.value === "lowest price"){
-
-            console.log("lowest price");
-
-            productItems = productItems.sort((a,b)=>{
-                return a.price - b.price;
-            })
-
-            console.log(productItems);
-        }
-        else if(selection.value === "highest price"){
-            console.log("highest");
-            productItems.sort((a,b)=>{
-                return  b.price - a.price ;
-            })
-
-            console.log(productItems);
-        }
-        else{
-            console.log("latest");
-            productItems.sort((a,b)=>{
-                return  new Date(b.date_posted) - new Date(a.date_posted);
-            })
-
-            console.log(productItems);
-
-        }
-        
-        this.setState({productItems:productItems})
-
-       }
-
-         
-
-    
 
 
 

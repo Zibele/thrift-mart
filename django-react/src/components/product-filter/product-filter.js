@@ -200,16 +200,15 @@ class Filter extends Component {
     }
 
     setBrandRadioValue = (value) =>{
-        console.log("Brand radio value");
-        
+     
         this.setState({brandRadioValue:value});
-
-        this.props.filterProductList(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
-
+        this.props.updateProductFilters(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+        this.props.filterProductList(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+       
     }
 
     getBrandRadioValue  = () =>{
-        console.log("Get brand radio value");
+      
         return this.state.brandRadioValue
     }
 
@@ -217,18 +216,20 @@ class Filter extends Component {
 
         this.setState({colourRadioValue:value});
 
-        this.props.filterProductList(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice);
-          
+        this.props.updateProductFilters(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+
+        this.props.filterProductList(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+
     }
 
     setSizeRadioValue = (value) =>{
 
         this.setState({sizeRadioValue:value});
 
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice);
-          
+        this.props.updateProductFilters(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
 
-        
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+          
     }
 
     removeSizeFromFilter = () => {
@@ -267,10 +268,13 @@ class Filter extends Component {
     }
 
     updatePrices = (min,max) =>{
-        this.setState({min_price:min,max_price:max});
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.min_price,this.state.max_price);
-          
         
+        this.setState({minPrice:min,maxPrice:max});
+
+        this.props.updateProductFilters(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+
+        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+          
     }
 
 
