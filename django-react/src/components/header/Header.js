@@ -12,11 +12,9 @@ class Header extends Component {
 
     render(){
 
-
-
         return (
 
-            <header class ="bg-gray-300 w-full">
+            <header class ="bg-gray-300 w-full shadow-2xl lg:shadow-sm mb-0.5">
 
                 <nav class="flex w-full px-2 py-4 lg:px-4 flex-wrap items-center">
 
@@ -74,7 +72,7 @@ class Header extends Component {
         if((!this.context.isMediumScreen) || (this.context.isMediumScreen && this.state.showHeaderMenu)){
           
            
-           navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center bg-gray-200 py-3 lg:w-auto lg:bg-gray-300  lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
+           navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center  py-3 lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
             
                             <li> <a class=" border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#About"> About      </a> </li>
                             

@@ -2,11 +2,19 @@ import {Component} from "react";
 import ScreenContext from "helpers/Screen";
 import PriceFilter from "components/price-filter/price-filter";
 import axios from "axios";
+import SortModal from "components/sort-modal/sort-modal";
 
 import {
         RadioGroup,
         Stack,
-        Radio
+        Radio,
+        Modal,
+        ModalOverlay,
+        ModalContent,
+        ModalHeader,
+        ModalFooter,
+        ModalBody,
+        ModalCloseButton
     }   from "@chakra-ui/react";
 
 class Filter extends Component {
@@ -130,7 +138,7 @@ class Filter extends Component {
                  
                         <div className="flex flex-row w-full justify-center space-x-1 lg:space-x-4 py-4 md:col-span-3">
 
-                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 "> Sort </button>
+                            <SortModal orderFilters = {this.props.orderFilters} updateProductFilters = {this.props.updateProductFilters} productFilters = {this.props.productFilters} orderSelectChange={this.props.orderSelectChange}/>
 
                             <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 " onClick = {this.togglePriceFilter}>Filter</button>
 
@@ -268,7 +276,7 @@ class Filter extends Component {
     }
 
     updatePrices = (min,max) =>{
-        
+
         this.setState({minPrice:min,maxPrice:max});
 
         this.props.updateProductFilters(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
@@ -367,17 +375,7 @@ class Filter extends Component {
 
 }
 
-/*  <div className="hidden">
-                        <RadioGroup onChange={this.setRadioValue.bind(this,"radioValue")} value={this.state.radioValue}>
-
-                            <Stack direction="column">
-                                <Radio value='0'>All</Radio>
-                                {this.state.productTypes.map(item=>(<Radio value={item.value.toString()}>{item.label}</Radio>))}
-                            </Stack>
-
-                        </RadioGroup>
-                    </div>*/
-
+  
 
 
 }

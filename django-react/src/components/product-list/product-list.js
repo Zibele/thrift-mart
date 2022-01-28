@@ -15,8 +15,9 @@ class ProductList extends Component{
     state = {
         productItems: [],
         categoryItems: [],
-        orderTypes:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
-        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:''}
+        orderFilters:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
+        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:''},
+       
     }
 
     render(){
@@ -42,7 +43,7 @@ class ProductList extends Component{
                     
                         <div className="flex flex-col w-full lg:pt-4 lg:col-span-2 ">
                             
-                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters}/>
+                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>
                             
                             {this.displayItemQty()}
 
@@ -83,12 +84,15 @@ class ProductList extends Component{
 
     filterProductList = (brand,colour,size,minPrice,maxPrice,ordering) => {
 
+        let order = ordering.value || ordering;
+
+
         let filters = {brand: brand && brand !=='0' ? brand : '',
                        colour: colour && colour !=='0'? colour : '',
                        size: size && size !=='0'? size : '',
                        min_price:minPrice? minPrice:'',
                        max_price:maxPrice? maxPrice:'',
-                       ordering: ordering? ordering:'-date_posted',
+                       ordering: order? order:'-date_posted',
                     }
 
         
@@ -109,7 +113,7 @@ class ProductList extends Component{
 
         typeSelect = (<div className="flex flex-row justify-between w-auto px-20">
                             <div className="w-64">    
-                                <Select options={this.state.orderTypes}/>
+                                <Select options={this.state.orderFilters}/>
                             </div>
                      </div>);
 
@@ -126,11 +130,11 @@ class ProductList extends Component{
         if((this.context.isExtraLargeScreen || this.context.isLargeScreen) && !this.context.isMediumScreen){
             
             topBar = (
-                    <div className="flex flex-row justify-between items-baseline shadow-inner w-full py-4 px-2 lg:col-span-4 xl:col-span-6 ">
+                    <div className="flex flex-row justify-between items-baseline  w-full py-4 px-2 lg:col-span-4 xl:col-span-6 ">
                         
                         <span>{this.state.productItems.length} Results</span>
                         <div className="w-64">    
-                            <Select placeholder="Order by" options={this.state.orderTypes} value={this.state.selectedOrderOption} onChange={this.orderSelectChange}/>
+                            <Select placeholder="Order by" options={this.state.orderFilters} value={this.state.productFilters.ordering} onChange={this.orderSelectChange}/>
                         </div>
 
                     </div>
@@ -145,13 +149,15 @@ class ProductList extends Component{
 
     orderSelectChange = (ordering) => {
 
+        console.log(`Order select change: ${ordering.value || ordering}`);
+
         let productFilters = this.state.productFilters;
 
-        productFilters.ordering = ordering.value;
+        productFilters.ordering = ordering;
     
         this.setState({productFilters:productFilters});
 
-        this.filterProductList(this.state.productFilters.brand,this.state.productFilters.colour,this.state.productFilters.size,this.state.productFilters.minPrice,this.state.productFilters.maxPrice,ordering.value)
+        this.filterProductList(this.state.productFilters.brand,this.state.productFilters.colour,this.state.productFilters.size,this.state.productFilters.minPrice,this.state.productFilters.maxPrice,ordering)
 
 
     }
