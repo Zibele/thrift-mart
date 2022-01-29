@@ -16,7 +16,7 @@ class ProductList extends Component{
         productItems: [],
         categoryItems: [],
         orderFilters:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
-        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:''},
+        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:{value:'-date_posted',label:'Latest'}},
        
     }
 
@@ -149,8 +149,8 @@ class ProductList extends Component{
 
     orderSelectChange = (ordering) => {
 
-        console.log(`Order select change: ${ordering.value || ordering}`);
-
+        ordering = typeof ordering === "object" ? ordering : this.state.orderFilters.find(order=>order.value === ordering)
+        
         let productFilters = this.state.productFilters;
 
         productFilters.ordering = ordering;
