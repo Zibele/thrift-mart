@@ -6,7 +6,6 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
     useDisclosure,
     RadioGroup,
     Stack,
@@ -17,10 +16,9 @@ import {
 
  import {React} from "react";
 
-const SortModal = (props) =>{
+const OrderByModal = (props) =>{
 
     const {isOpen,onOpen,onClose} = useDisclosure();
-
 
     return (
         <>
@@ -63,4 +61,4 @@ const SortModal = (props) =>{
 
 
 
-export default SortModal;
+export default OrderByModal;

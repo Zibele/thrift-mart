@@ -2,22 +2,15 @@ import {Component} from "react";
 import ScreenContext from "helpers/Screen";
 import PriceFilter from "components/price-filter/price-filter";
 import axios from "axios";
-import SortModal from "components/sort-modal/sort-modal";
 
 import {
         RadioGroup,
         Stack,
         Radio,
-        Modal,
-        ModalOverlay,
-        ModalContent,
-        ModalHeader,
-        ModalFooter,
-        ModalBody,
-        ModalCloseButton
+  
     }   from "@chakra-ui/react";
 
-class Filter extends Component {
+class ProductFilter extends Component {
 
     
     static contextType = ScreenContext;
@@ -33,8 +26,8 @@ class Filter extends Component {
         brandRadioValue: '0',
         colourRadioValue:'0',
         sizeRadioValue: '0',
-        minPrice:'0',
-        maxPrice:'2000'
+        minPrice:this.props.productFilters.minPrice,
+        maxPrice:this.props.maxPrice,
     };
 
 
@@ -130,27 +123,8 @@ class Filter extends Component {
 
 
     renderFilter = () => {
-        
-        let filter;
-       
-        if(this.context.isMediumScreen){
-            filter = (
-                 
-                        <div className="flex flex-row w-full justify-center space-x-1 lg:space-x-4 py-4 md:col-span-3">
-
-                            <SortModal orderFilters = {this.props.orderFilters} updateProductFilters = {this.props.updateProductFilters} productFilters = {this.props.productFilters} orderSelectChange={this.props.orderSelectChange}/>
-
-                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 " onClick = {this.togglePriceFilter}>Filter</button>
-
-                            <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-1 px-2 ">Cart</button>
-
-                        </div>
-                  
-                );
-        }
-
-        else{
-            filter = (
+    
+        let filter = (
 
                 <div className="flex flex-col w-full">
 
@@ -167,7 +141,7 @@ class Filter extends Component {
 
                     </button>
 
-                    {this.renderRadioBtns(this.state.displayOption.brands,this.state.brands,"brandRadioValue",this.state.brandRadioValue,this.setBrandRadioValue)}
+                    {this.renderRadioBtns(this.state.displayOption.brands,this.state.brands,"brandRadioValue",this.props.productFilters.brand,this.setBrandRadioValue)}
 
 
                     <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("colour")}>
@@ -179,7 +153,7 @@ class Filter extends Component {
                         
                     </button>
 
-                    {this.renderRadioBtns(this.state.displayOption.colours,this.state.colours,"colourRadioValue",this.state.colourRadioValue,this.setColourRadioValue)}
+                    {this.renderRadioBtns(this.state.displayOption.colours,this.state.colours,"colourRadioValue",this.props.productFilters.colour,this.setColourRadioValue)}
 
                     <button className="w-full flex flex-row justify-between border-t-2 border-b-2 mt-2" onClick={()=>this.toggleDisplayOption("size")}>
                         
@@ -189,7 +163,7 @@ class Filter extends Component {
                         
                     </button> 
 
-                    {this.renderRadioBtns(this.state.displayOption.sizes,this.state.sizes,"sizeRadioValue",this.state.sizeRadioValue,this.setSizeRadioValue)}
+                    {this.renderRadioBtns(this.state.displayOption.sizes,this.state.sizes,"sizeRadioValue",this.props.productFilters.size,this.setSizeRadioValue)}
 
                     <button className="w-full flex flex-row justify-between border-b-2 border-t-2 mt-2" onClick={()=>this.toggleDisplayOption("price")}>
                         
@@ -202,16 +176,16 @@ class Filter extends Component {
                 </div>
 
 
-            )
-        }
+            );
+        
         return filter;
     }
 
     setBrandRadioValue = (value) =>{
      
         this.setState({brandRadioValue:value});
-        this.props.updateProductFilters(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
-        this.props.filterProductList(value,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+        this.props.updateProductFilters(value,this.props.productFilters.colour,this.props.productFilters.size,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+        this.props.filterProductList(value,this.props.productFilters.colour,this.props.productFilters.size,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
        
     }
 
@@ -224,7 +198,7 @@ class Filter extends Component {
 
         this.setState({colourRadioValue:value});
 
-        this.props.updateProductFilters(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+        this.props.updateProductFilters(this.props.productFilters.brand,value,this.props.productFilters.size,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
 
         this.props.filterProductList(this.state.brandRadioValue,value,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
 
@@ -234,9 +208,9 @@ class Filter extends Component {
 
         this.setState({sizeRadioValue:value});
 
-        this.props.updateProductFilters(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+        this.props.updateProductFilters(this.props.productFilters.brand,this.props.productFilters.colour,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
 
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+        this.props.filterProductList(this.props.productFilters.brand,this.props.productFilters.colour,value,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
           
     }
 
@@ -275,13 +249,13 @@ class Filter extends Component {
 
     }
 
-    updatePrices = (min,max) =>{
+    updatePrices = (minPrice,maxPrice) =>{
 
-        this.setState({minPrice:min,maxPrice:max});
+        this.setState({minPrice:minPrice,maxPrice:maxPrice});
 
-        this.props.updateProductFilters(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering)
+        this.props.updateProductFilters(this.props.productFilters.brand,this.props.productFilters.colour,this.props.productFilters.size,minPrice,maxPrice,this.props.productFilters.ordering)
 
-        this.props.filterProductList(this.state.brandRadioValue,this.state.colourRadioValue,this.state.sizeRadioValue,this.state.minPrice,this.state.maxPrice,this.props.productFilters.ordering);
+        this.props.filterProductList(this.props.productFilters.brand,this.props.productFilters.colour,this.props.productFilters.size,minPrice,maxPrice,this.props.productFilters.ordering);
           
     }
 
@@ -333,13 +307,19 @@ class Filter extends Component {
     displayFilteredItems = () => {
         let filteredItems;
 
-        if(this.state.brandRadioValue !== "0" || this.state.sizeRadioValue !== "0" || this.state.colourRadioValue !== "0"){
+        if(this.props.productFilters.brand !== "0" || this.props.productFilters.size !== "0" || this.props.productFilters.colour !== "0"){
 
+            let brand = this.state.brands.find(elem => elem.value.toString() === this.props.productFilters.brand);
+            let colour = this.state.colours.find(elem => elem.value.toString() === this.props.productFilters.colour);
+            let size = this.state.sizes.find(elem => elem.value.toString() === this.props.productFilters.size);
+            
              filteredItems = (
                                     <div className="flex flex-col">
-                                        {this.state.brandRadioValue !== "0" && (<span>Brand: {this.state.brands.find(elem => elem.value.toString() === this.state.brandRadioValue).label} </span>)}
-                                        {this.state.colourRadioValue !== "0" && (<span>Colour: {this.state.colours.find(elem => elem.value.toString() === this.state.colourRadioValue).label}</span>)}
-                                        {this.state.sizeRadioValue !== "0" && (<span>Size: {this.state.sizes.find(elem => elem.value.toString() === this.state.sizeRadioValue).label}</span>)}
+                                        {console.log(`Brand:${this.props.productFilters.brand} Item quantity:${this.state.brands.length}, Colour:${this.props.productFilters.colour}, Size: ${this.props.productFilters.size}`)}
+                                        
+                                        {this.props.productFilters.brand !== "0" && (<span>Brand: {brand && brand.label} </span>)}
+                                        {this.props.productFilters.colour !== "0" && (<span>Colour: {colour && colour.label}</span>)}
+                                        {this.props.productFilters.size !== "0" && (<span>Size: {size && size.label}</span>)}
                                     </div>
                             )
 
@@ -376,8 +356,6 @@ class Filter extends Component {
 }
 
   
-
-
 }
 
-export default Filter;
+export default ProductFilter;

@@ -3,9 +3,10 @@ import axios from "axios";
 import {Component} from "react";
 import ScreenContext from "helpers/Screen";
 import ProductItem from "components/product-item/product-item";
-import Filter from "components/product-filter/product-filter";
+import ProductFilter from "components/product-filter/product-filter";
 import Select from "react-select";
-
+import OrderByModal from "components/order-by-modal/order-by-modal";
+import ProductFilterModal from "components/product-filter-modal/product-filter-modal";
 
 class ProductList extends Component{
 
@@ -16,7 +17,7 @@ class ProductList extends Component{
         productItems: [],
         categoryItems: [],
         orderFilters:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
-        productFilters:{brand:'',colour:'',size:'',minPrice:'',maxPrice:'',ordering:{value:'-date_posted',label:'Latest'}},
+        productFilters:{brand:'0',colour:'0',size:'0',minPrice:'0',maxPrice:'2000',ordering:{value:'-date_posted',label:'Latest'}},
        
     }
 
@@ -42,9 +43,8 @@ class ProductList extends Component{
                 <div className="flex flex-col justify-center lg:flex-row w-full lg:grid lg:grid-cols-11 lg:px-4 bg-white">
                     
                         <div className="flex flex-col w-full lg:pt-4 lg:col-span-2 ">
-                            
-                            <Filter productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>
-                            
+
+                            {this.displayFilter()}
                             {this.displayItemQty()}
 
                         </div>
@@ -184,6 +184,35 @@ class ProductList extends Component{
 
         return itemQty;
 
+    }
+
+    displayFilter = () =>{
+
+        let filter;
+
+        if(this.context.isMediumScreen){
+           
+            filter=(
+                     <div className="flex flex-row w-full justify-center space-x-1 lg:space-x-4 py-4 md:col-span-3">
+
+                        <OrderByModal orderFilters = {this.state.orderFilters} updateProductFilters = {this.state.updateProductFilters} productFilters = {this.state.productFilters} orderSelectChange={this.state.orderSelectChange}/>
+
+                        <ProductFilterModal productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>
+
+                        <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-1 px-2 ">Cart</button>
+
+                    </div> 
+                   );
+
+        }
+        else{
+
+            filter= (<ProductFilter productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>);
+
+        }
+
+
+        return filter;
     }
    
 
