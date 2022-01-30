@@ -26,8 +26,7 @@ class ProductFilter extends Component {
         brandRadioValue: '0',
         colourRadioValue:'0',
         sizeRadioValue: '0',
-        minPrice:this.props.productFilters.minPrice,
-        maxPrice:this.props.maxPrice,
+      
     };
 
 
@@ -227,7 +226,7 @@ class ProductFilter extends Component {
      
         if(this.state.displayOption.prices){
 
-            itemFilter = (<PriceFilter updatePrices={this.updatePrices} minPrice={this.state.minPrice} maxPrice={this.state.maxPrice}/>);
+            itemFilter = (<PriceFilter updatePrices={this.updatePrices} minPrice={this.props.productFilters.minPrice} maxPrice={this.props.productFilters.maxPrice}/>);
 
         }
 
