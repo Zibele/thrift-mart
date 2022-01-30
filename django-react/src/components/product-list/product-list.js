@@ -7,6 +7,7 @@ import ProductFilter from "components/product-filter/product-filter";
 import Select from "react-select";
 import OrderByModal from "components/order-by-modal/order-by-modal";
 import ProductFilterModal from "components/product-filter-modal/product-filter-modal";
+import ShoppingCart from "components/shopping-cart/shopping-cart";
 
 class ProductList extends Component{
 
@@ -18,12 +19,13 @@ class ProductList extends Component{
         categoryItems: [],
         orderFilters:[{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}],
         productFilters:{brand:'0',colour:'0',size:'0',minPrice:'0',maxPrice:'2000',ordering:{value:'-date_posted',label:'Latest'}},
-       
+        shoppingCart: []
     }
 
     render(){
       
         const items = this.state.productItems.map((item) => {
+
         
         let brandName = item.brand != null ? item.brand['brand'] : "None" 
             
@@ -34,6 +36,7 @@ class ProductList extends Component{
                 primaryImage = {item.primary_image}
                 secondaryImage = {item.secondary_image}
                 brand = {brandName}
+                addToCart = {this.addToCart}
             />    
         }
         )
@@ -149,6 +152,7 @@ class ProductList extends Component{
 
     orderSelectChange = (ordering) => {
 
+        console.log(`Ordering: ${ordering}`);
         ordering = typeof ordering === "object" ? ordering : this.state.orderFilters.find(order=>order.value === ordering)
         
         let productFilters = this.state.productFilters;
@@ -195,11 +199,11 @@ class ProductList extends Component{
             filter=(
                      <div className="flex flex-row w-full justify-center space-x-1 lg:space-x-4 py-4 md:col-span-3">
 
-                        <OrderByModal orderFilters = {this.state.orderFilters} updateProductFilters = {this.state.updateProductFilters} productFilters = {this.state.productFilters} orderSelectChange={this.state.orderSelectChange}/>
+                        <OrderByModal orderFilters = {this.state.orderFilters} updateProductFilters = {this.state.updateProductFilters} productFilters = {this.state.productFilters} orderSelectChange={this.orderSelectChange}/>
 
                         <ProductFilterModal productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>
 
-                        <button className="bg-gray-200 text-base font-medium text-gray-600 rounded  py-1 px-2 ">Cart</button>
+                        <ShoppingCart shoppingCart={this.state.shoppingCart} />
 
                     </div> 
                    );
@@ -214,6 +218,25 @@ class ProductList extends Component{
 
         return filter;
     }
+
+
+    addToCart = (itemID) => {
+
+       console.log(`Add item ${itemID}`);
+
+       let shoppingCart = this.state.shoppingCart;
+        
+       let itemToAdd = this.state.productItems.find(product=>product.id===itemID);
+
+       console.log(itemToAdd);
+       
+       itemToAdd && shoppingCart.push(itemToAdd) && this.setState({shoppingCart:shoppingCart});
+
+    }
+
+
+
+
    
 
 
