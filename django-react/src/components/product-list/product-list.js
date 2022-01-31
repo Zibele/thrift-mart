@@ -203,7 +203,7 @@ class ProductList extends Component{
 
                         <ProductFilterModal productQty={this.state.productItems.length} filterProductList={this.filterProductList} updateProductFilters={this.updateProductFilters} productFilters={this.state.productFilters} orderFilters={this.state.orderFilters} orderSelectChange={this.orderSelectChange}/>
 
-                        <ShoppingCart shoppingCart={this.state.shoppingCart} />
+                        <ShoppingCart shoppingCart={this.state.shoppingCart} removeFromCart={this.removeFromCart} />
 
                     </div> 
                    );
@@ -222,15 +222,24 @@ class ProductList extends Component{
 
     addToCart = (itemID) => {
 
-       console.log(`Add item ${itemID}`);
+
 
        let shoppingCart = this.state.shoppingCart;
         
        let itemToAdd = this.state.productItems.find(product=>product.id===itemID);
 
-       console.log(itemToAdd);
        
        itemToAdd && shoppingCart.push(itemToAdd) && this.setState({shoppingCart:shoppingCart});
+
+    }
+
+    removeFromCart = (itemID) => {
+
+        console.log(`Id ${itemID}`);
+
+        let shoppingCart = this.state.shoppingCart.filter(item=>item.id !== itemID);
+
+        this.setState({shoppingCart:shoppingCart});
 
     }
 

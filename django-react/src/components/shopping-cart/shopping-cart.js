@@ -11,31 +11,46 @@ import {
  
   } from '@chakra-ui/react';
 
- import {React} from "react";
+ import {React,useState,useEffect} from "react";
  import ProductItem from "components/product-item/product-item";
+ 
 
 
 const ShoppingCart = (props) =>{
 
     const {isOpen,onOpen,onClose} = useDisclosure();
+    const [totalPrice,setTotalPrice] = useState(0);
+    const [products,setProducts] = useState([]);
+   
+    useEffect(() => {
 
-    console.log(`Quantity of shopping cart: ${props.shoppingCart.length}`);
+      let currentPrice = 0;
 
-    let products = props.shoppingCart.map(product=>{
+      let products = props.shoppingCart.map(product=>{
 
         let brandName = product.brand != null ? product.brand['brand'] : "None"; 
-
+        currentPrice = currentPrice+ parseInt(product.price);
         return  <ProductItem 
                     key = {product.id}
+                    id  = {product.id}
                     title = {product.title}
                     price = {product.price}
                     primaryImage = {product.primary_image}
                     secondaryImage = {product.secondary_image}
                     brand = {brandName}
                     inModal = {true}
+                    quantityInStock = {product.quantity_in_stock}
+                    removeFromCart= {props.removeFromCart}
                 />             
 
     });
+
+      setTotalPrice(currentPrice);
+
+      setProducts(products)
+    }, [props.shoppingCart.length]);
+
+    console.log(products.length);
 
     return (
         <>
@@ -59,9 +74,11 @@ const ShoppingCart = (props) =>{
               </ModalBody>
     
               <ModalFooter>
-                <Button colorScheme='blue' mr={16} size="lg" width="200px" onClick={onClose}>
-                  Check out
-                </Button>
+                <div className="flex justify-center w-full">
+                  <Button colorScheme='blue'  size="lg"  onClick={onClose}>
+                    Check out (R{totalPrice})
+                  </Button>
+                </div>
               </ModalFooter>
 
             </ModalContent>
