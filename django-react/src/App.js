@@ -1,4 +1,13 @@
-import React from "react";      
+import React from "react";
+import {
+  BrowserRoute as Router,
+  Route,
+  Routes,
+  Link,
+  Redirect,
+  Switch
+
+}   from 'react-router-dom';  
 import Header from "components/header/header";
 import ProductList from "components/product-list/product-list";
 import Footer from "components/footer/footer";
@@ -8,13 +17,13 @@ import ScreenContext from "helpers/Screen";
 
 const App = () => {
 
-
   const isSmallScreen = useMediaQuery({
-    maxWidth:768
+    minWidth:640,
+    maxWidth:767
    });
 
   const isExtraSmallScreen = useMediaQuery({
-    maxWidth:640
+    maxWidth:639
   });
 
   const isMediumScreen = useMediaQuery({
@@ -22,7 +31,8 @@ const App = () => {
   });
 
   const isLargeScreen = useMediaQuery({
-    maxWidth:1280
+    minWidth:1024,
+    maxWidth:1279
   });
 
   const isExtraLargeScreen = useMediaQuery({
@@ -38,7 +48,10 @@ const App = () => {
                 isExtraSmallScreen:isExtraSmallScreen,
                 isExtraLargeScreen:isExtraLargeScreen}}>
                   <Header/>
-                  <ProductList/>
+                    <Routes>
+                      <Route path='/products' element={<ProductList/>}/>
+                      <Route exact path='/' element={<ProductList/>}/>
+                    </Routes>
                   <Footer/>
           </ScreenContext.Provider>
   )

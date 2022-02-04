@@ -1,5 +1,6 @@
 import {Component} from "react";
 import ScreenContext from "helpers/Screen";
+import {Link} from 'react-router-dom';
 
 class Header extends Component {
 
@@ -72,15 +73,13 @@ class Header extends Component {
         if((!this.context.isMediumScreen) || (this.context.isMediumScreen && this.state.showHeaderMenu)){
           
            
-           navButtons = (<ul  class="flex flex-col w-full space-y-4 items-center  py-3 lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
-            
-                            <li> <a class=" border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#About"> About      </a> </li>
+           navButtons = (<ul  className="flex flex-col w-full space-y-4 items-center  py-3 lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center " id="nav-items">
                             
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#Catalog"> Catalog    </a> </li>
+                            <li> <Link className="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" to="/products"> Catalog    </Link> </li>
                             
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#Login"> Login     </a> </li>
+                            <li> <Link className="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" to="/Login"> Login     </Link> </li>
 
-                            <li> <a class="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" href="#SignUp"> Sign up   </a> </li>
+                            <li> <Link className="border-transparent border-b-4 pb-2 px-2 hover:border-green-300" to="/Register"> Sign up   </Link> </li>
                         </ul>);
         }
 

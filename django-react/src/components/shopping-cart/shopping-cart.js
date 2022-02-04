@@ -8,25 +8,31 @@ import {
     useDisclosure,
     Button,
     ModalCloseButton
- 
   } from '@chakra-ui/react';
 
- import {React,useState,useEffect} from "react";
+ import {React,useState,useEffect,useCallback} from "react";
+
  import ProductItem from "components/product-item/product-item";
  
+ import { useDispatch,useSelector } from 'react-redux';
 
 
 const ShoppingCart = (props) =>{
 
     const {isOpen,onOpen,onClose} = useDisclosure();
-    const [totalPrice,setTotalPrice] = useState(0);
+  
     const [products,setProducts] = useState([]);
+
+    const cart = useSelector(state=>state.shoppingCart.cart);
+    const totalPrice = useSelector(state=>state.shoppingCart.totalPrice);
+
+    
    
     useEffect(() => {
 
       let currentPrice = 0;
-
-      let products = props.shoppingCart.map(product=>{
+      console.log(cart);
+      let products = cart.map(product=>{
 
         let brandName = product.brand != null ? product.brand['brand'] : "None"; 
         currentPrice = currentPrice+ parseInt(product.price);
@@ -45,12 +51,17 @@ const ShoppingCart = (props) =>{
 
     });
 
-      setTotalPrice(currentPrice);
-
       setProducts(products)
-    }, [props.shoppingCart.length]);
+    }, [cart.length]);
 
-    console.log(products.length);
+    const checkOut = useCallback((onClose)=> {
+
+      console.log("Checking out")
+      onClose();
+
+
+    },[]);
+
 
     return (
         <>
@@ -75,7 +86,7 @@ const ShoppingCart = (props) =>{
     
               <ModalFooter>
                 <div className="flex justify-center w-full">
-                  <Button colorScheme='blue'  size="lg"  onClick={onClose}>
+                  <Button colorScheme='blue'  size="lg"  onClick={()=>checkOut(onClose)}>
                     Check out (R{totalPrice})
                   </Button>
                 </div>
@@ -87,6 +98,7 @@ const ShoppingCart = (props) =>{
       )
 
 }
+
 
 
 
