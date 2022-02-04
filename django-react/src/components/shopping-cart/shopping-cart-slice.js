@@ -10,18 +10,32 @@ export const shoppingCartSlice = createSlice({
 
         addItemToCart: (state,action)=> {
             state.cart.push(action.payload);
-            state.totalPrice += parseInt(action.payload.price);
+        },
+
+        addToTotalPrice: (state,action) =>{
+            state.totalPrice += action.payload;
         },
 
         removeItemFromCart: (state,action)=> {
-            state.cart = state.cart.filter(product=>product.id !== action.payload.id);
-            state.totalPrice -= parseInt(action.payload.price);
+            
+            state.cart = action.payload;
+            
+        },
+
+        deductTotalPrice: (state,action) => {
+
+            console.log(`Deduct ${action.payload}, from ${state.totalPrice}`);
+
+            state.totalPrice -= action.payload;
+
+
+
         }
 
     }
 
 })
 
-export const {addItemToCart,removeItemFromCart} = shoppingCartSlice.actions;
+export const {addItemToCart,removeItemFromCart,addToTotalPrice,deductTotalPrice} = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

@@ -14,11 +14,22 @@ import {
  
   } from '@chakra-ui/react';
 
- import {React} from "react";
+ import {React,useEffect,useState} from "react";
 
 const OrderByModal = (props) =>{
 
     const {isOpen,onOpen,onClose} = useDisclosure();
+    const [orderOptions,setOrderOptions] = useState([])
+
+
+    useEffect(()=>{
+
+      console.log(`Order filters is: ${typeof props.orderFilters}`);
+      const options = props.orderFilters.map(item=>(<Radio value={item.value}>{item.label}</Radio>));
+
+      setOrderOptions(options);
+
+    },[])
 
     return (
         <>
@@ -36,7 +47,7 @@ const OrderByModal = (props) =>{
                 <RadioGroup onChange={props.orderSelectChange} value={props.productFilters.ordering.value}>
 
                     <Stack direction="column">  
-                        {props.orderFilters.map(item=>(<Radio value={item.value}>{item.label}</Radio>))}
+                        {orderOptions}
                     </Stack>
 
                 </RadioGroup>

@@ -30,12 +30,11 @@ const ShoppingCart = (props) =>{
    
     useEffect(() => {
 
-      let currentPrice = 0;
-      console.log(cart);
+      
       let products = cart.map(product=>{
 
         let brandName = product.brand != null ? product.brand['brand'] : "None"; 
-        currentPrice = currentPrice+ parseInt(product.price);
+        
         return  <ProductItem 
                     key = {product.id}
                     id  = {product.id}

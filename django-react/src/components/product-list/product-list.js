@@ -33,7 +33,6 @@ const ProductList = (props) =>{
 
     },[]);
     
-    console.log(productList);
 
     const getProductList = useCallback(() =>{
     
@@ -105,12 +104,12 @@ const ProductList = (props) =>{
 
         filter.ordering = ordering;
     
-        setOrderFilters(filter);
+        setProductFilters(filter);
 
-        this.filterProductList(productFilters.brand,productFilters.colour,productFilters.size,productFilters.minPrice,productFilters.maxPrice,ordering)
+        filterProductList(productFilters.brand,productFilters.colour,productFilters.size,productFilters.minPrice,productFilters.maxPrice,ordering)
 
 
-    },[]);
+    },[productFilters]);
 
 
     const updateProductFilters = useCallback((brand,colour,size,minPrice,maxPrice,ordering) => {
@@ -227,12 +226,7 @@ const ProductList = (props) =>{
         );
 
 
-
-      
-
     }
-
-
 
 
 export default ProductList;

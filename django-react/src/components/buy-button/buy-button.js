@@ -1,6 +1,6 @@
 import {useDispatch,useSelector} from 'react-redux';
 import {useCallback} from 'react';
-import {addItemToCart} from "components/shopping-cart/shopping-cart-slice";
+import {addItemToCart,addToTotalPrice} from "components/shopping-cart/shopping-cart-slice";
 
 const BuyButton = (props) => {
 
@@ -11,8 +11,8 @@ const BuyButton = (props) => {
     const addToCart = useCallback(() => {
 
         let itemToAdd = productList.find(product=>product.id===props.id);
- 
-        itemToAdd && dispatch(addItemToCart(itemToAdd));
+        
+        itemToAdd && dispatch(addItemToCart(itemToAdd)) && dispatch(addToTotalPrice(parseInt(itemToAdd.price)));
  
      },[productList.length]);
     
