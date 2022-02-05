@@ -44,17 +44,17 @@ const ProductList = (props) =>{
     },[])
 
 
-    const filterProductList = useCallback((brand,colour,size,minPrice,maxPrice,ordering) => {
-
-        let order = ordering.value || ordering;
-
-
-        let filters = {brand: brand && brand !=='0' ? brand : '',
-                       colour: colour && colour !=='0'? colour : '',
-                       size: size && size !=='0'? size : '',
-                       min_price:minPrice? minPrice:'',
-                       max_price:maxPrice? maxPrice:'',
-                       ordering: order? order:'-date_posted',
+    const filterProductList = useCallback((productFilters) => {
+        let ordering = productFilters.ordering;
+       
+        ordering = typeof ordering === "object" ? ordering : orderFilters.find(order=>order.value === ordering);
+        
+        let filters = {brand: productFilters.brand && productFilters.brand !=='0' ? productFilters.brand : '',
+                       colour: productFilters.colour && productFilters.colour !=='0'? productFilters.colour : '',
+                       size: productFilters.size && productFilters.size !=='0'? productFilters.size : '',
+                       min_price:productFilters.minPrice? productFilters.minPrice:'',
+                       max_price:productFilters.maxPrice? productFilters.maxPrice:'',
+                       ordering: ordering? ordering:'-date_posted',
                     }
 
         
@@ -97,7 +97,6 @@ const ProductList = (props) =>{
 
     const orderSelectChange = useCallback((ordering) => {
 
-        console.log(`Ordering: ${ordering}`);
         ordering = typeof ordering === "object" ? ordering : orderFilters.find(order=>order.value === ordering);
         
         let filter = productFilters;
@@ -106,14 +105,14 @@ const ProductList = (props) =>{
     
         setProductFilters(filter);
 
-        filterProductList(productFilters.brand,productFilters.colour,productFilters.size,productFilters.minPrice,productFilters.maxPrice,ordering)
+        filterProductList({...productFilters,ordering:ordering});
 
 
     },[productFilters]);
 
 
-    const updateProductFilters = useCallback((brand,colour,size,minPrice,maxPrice,ordering) => {
-        setProductFilters({brand:brand,colour:colour,size:size,minPrice:minPrice,maxPrice:maxPrice,ordering:ordering});
+    const updateProductFilters = useCallback((productFilters) => {
+        setProductFilters(productFilters);
     },[]);
 
     const displayItemQty = useCallback(() => {

@@ -24,7 +24,7 @@ const OrderByModal = (props) =>{
 
     useEffect(()=>{
 
-      console.log(`Order filters is: ${typeof props.orderFilters}`);
+    
       const options = props.orderFilters.map(item=>(<Radio value={item.value}>{item.label}</Radio>));
 
       setOrderOptions(options);
