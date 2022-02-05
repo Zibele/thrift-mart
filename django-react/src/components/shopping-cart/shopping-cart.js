@@ -10,7 +10,7 @@ import {
     ModalCloseButton
   } from '@chakra-ui/react';
 
- import {React,useState,useEffect,useCallback} from "react";
+ import {React,useState,useEffect,useCallback,Redirect} from "react";
 
  import ProductItem from "components/product-item/product-item";
  
@@ -25,6 +25,7 @@ const ShoppingCart = (props) =>{
 
     const cart = useSelector(state=>state.shoppingCart.cart);
     const totalPrice = useSelector(state=>state.shoppingCart.totalPrice);
+    const user = useSelector(state=>state.user);
 
     
    
@@ -55,8 +56,14 @@ const ShoppingCart = (props) =>{
 
     const checkOut = useCallback((onClose)=> {
 
-      console.log("Checking out")
       onClose();
+
+      if(true){
+        return (<Redirect/>);
+      }
+      else{
+        return (<Redirect/>);
+      }
 
 
     },[]);

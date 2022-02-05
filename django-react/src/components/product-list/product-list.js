@@ -20,13 +20,11 @@ const ProductList = (props) =>{
     const [orderFilters,setOrderFilters] = useState([{value:'-date_posted',label:'Latest',},{value:'price',label:'Lowest Price',},{value:'-price',label:'Highest Price',}]);
     const [productFilters,setProductFilters] = useState({brand:'0',colour:'0',size:'0',minPrice:'0',maxPrice:'2000',ordering:{value:'-date_posted',label:'Latest'}});
     
-    const cart = useSelector((state)=>state.shoppingCart.cart);
     const productList = useSelector((state)=>state.productList.items)
 
     const dispatch = useDispatch();
     
-    const [shoppingCart,setShoppingCart] = useState(cart||[]);
-    
+
     useEffect(()=>{
 
         getProductList();
@@ -145,7 +143,7 @@ const ProductList = (props) =>{
 
                         <ProductFilterModal productQty={productList.length} filterProductList={filterProductList} updateProductFilters={updateProductFilters} productFilters={productFilters} orderFilters={orderFilters} orderSelectChange={orderSelectChange}/>
 
-                        <ShoppingCart shoppingCart={shoppingCart} removeFromCart={removeFromCart} />
+                        <ShoppingCart  />
 
                     </div> 
                    );
@@ -161,26 +159,7 @@ const ProductList = (props) =>{
         return filter;
     },[context,productFilters,orderFilters,productList.length]);
 
-    const addToCart = useCallback((itemID) => {
-
-        let cart = shoppingCart;
-         
-        let itemToAdd = productList.find(product=>product.id===itemID);
- 
-        itemToAdd && cart.push(itemToAdd) && setShoppingCart(cart);
- 
-     },[]);
- 
-    const removeFromCart = useCallback((itemID) => {
- 
-         console.log(`Id ${itemID}`);
- 
-         let cart = shoppingCart.filter(item=>item.id !== itemID);
- 
-         setShoppingCart(cart);
- 
-     },[]);
-
+    
     
     const items = productList.map((item) => {
 
@@ -193,7 +172,7 @@ const ProductList = (props) =>{
                 primaryImage = {item.primary_image}
                 secondaryImage = {item.secondary_image}
                 brand = {brandName}
-                addToCart = {addToCart}
+                
             />    
         }
         );

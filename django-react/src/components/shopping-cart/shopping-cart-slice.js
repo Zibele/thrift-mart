@@ -24,11 +24,7 @@ export const shoppingCartSlice = createSlice({
 
         deductTotalPrice: (state,action) => {
 
-            console.log(`Deduct ${action.payload}, from ${state.totalPrice}`);
-
             state.totalPrice -= action.payload;
-
-
 
         }
 

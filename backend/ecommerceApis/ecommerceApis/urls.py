@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from products.views import ProductAPIView,ProductTypeAPIView,BrandAPIView,ColourAPIView,SizeAPIView
 from orders.views import OrderAPIView
 from django.conf.urls.static import static
@@ -22,10 +22,13 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/products',ProductAPIView.as_view(), name = "product-list" ),
-    path('api/orders',OrderAPIView.as_view(), name = "order-list"),
-    path('api/productTypes',ProductTypeAPIView.as_view(), name="product-type-list"),
-    path('api/brands',BrandAPIView.as_view(), name = "brand-list"),
-    path('api/colours',ColourAPIView.as_view(), name = "colour-list"),
-    path('api/sizes',SizeAPIView.as_view(), name="size-list"),
+    path('api/products/',ProductAPIView.as_view(), name = "product-list" ),
+    path('api/orders/',OrderAPIView.as_view(), name = "order-list"),
+    path('api/productTypes/',ProductTypeAPIView.as_view(), name="product-type-list"),
+    path('api/brands/',BrandAPIView.as_view(), name = "brand-list"),
+    path('api/colours/',ColourAPIView.as_view(), name = "colour-list"),
+    path('api/sizes/',SizeAPIView.as_view(), name="size-list"),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/dj-rest-auth/',include('dj_rest_auth.urls')),
+    path('api/dj-rest-auth/registration/',include('dj_rest_auth.registration.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
