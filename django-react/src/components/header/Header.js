@@ -15,7 +15,7 @@ class Header extends Component {
 
         return (
 
-            <header class ="bg-gray-300 w-full shadow-2xl lg:shadow-sm mb-0.5">
+            <header class ="bg-gray-300 w-full shadow-sm mb-0.5">
 
                 <nav class="flex w-full px-2 py-4 lg:px-4 flex-wrap items-center">
 

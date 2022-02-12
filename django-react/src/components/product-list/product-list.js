@@ -46,13 +46,13 @@ const ProductList = (props) =>{
         let ordering = productFilters.ordering;
        
         ordering = typeof ordering === "object" ? ordering : orderFilters.find(order=>order.value === ordering);
-        
+        console.log(ordering);
         let filters = {brand: productFilters.brand && productFilters.brand !=='0' ? productFilters.brand : '',
                        colour: productFilters.colour && productFilters.colour !=='0'? productFilters.colour : '',
                        size: productFilters.size && productFilters.size !=='0'? productFilters.size : '',
                        min_price:productFilters.minPrice? productFilters.minPrice:'',
                        max_price:productFilters.maxPrice? productFilters.maxPrice:'',
-                       ordering: ordering? ordering:'-date_posted',
+                       ordering: ordering? ordering.value:'-date_posted',
                     }
 
         
