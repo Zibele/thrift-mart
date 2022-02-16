@@ -5,35 +5,19 @@ import { FormLabel,FormControl,Input,FormErrorMessage,Button } from "@chakra-ui/
 
 const Login = (props) => {
 
-    const validateUsername = (value) => {
+   
 
-        let error;
-        
-        const isValid = value.match(/^[a-zA-Z0-9]+([.\-_]?[_a-zA-Z0-9])*$/);
-
-        if (!value) {
-          error = 'A username is required';
-        } else if(value.length < 4 || !isValid){
-          error = "Username is invalid";
-        }
-        
-        return error;
-           
-      }
-
-    const validatePassword = (value) => {
+    const validateInput = (value,message) => {
         
         let error;
         
-        const isValid = value ? value.match(/^[a-zA-Z0-9]+([.\-_]?[_a-zA-Z0-9])*$/) : false;
+        //const isValid = value.match(/^[a-zA-Z0-9]+([.\-_]?[_a-zA-Z0-9])*$/);
+        //const isValid = value ? value.match(/^[a-zA-Z0-9]+([.\-_]?[_a-zA-Z0-9])*$/) : false;
         
         if(!value){
-            error = "A password is required";
+            error = message;
         }
-        else if(value.length < 8 || !isValid){
-            error = "Password is invalid"
-        }
-
+    
         return error;
     }  
 
@@ -50,12 +34,12 @@ const Login = (props) => {
                 },1000);
             }}
         >
-
+            
             {(props)=>(
+                <div className="grid grid-cols-10 py-8 ">
+                <Form className="col-start-2 col-span-8 p-4 md:col-start-4 md:col-span-4 border-2 ">
 
-                <Form className="flex flex-col p-4">
-
-                    <Field name="username" validate={validateUsername}>
+                    <Field name="username" validate={value => (validateInput(value,"Please enter a username"))}>
                        {({field,form})=>(
                             <FormControl isInvalid={form.errors.username && form.touched.username}>
                                 
@@ -71,7 +55,7 @@ const Login = (props) => {
 
                     </Field> 
 
-                    <Field name="password" validate={validatePassword}>
+                    <Field name="password" validate={value=>(validateInput(value,"Please enter a password"))}>
                         
                         {({field,form})=>(
 
@@ -92,21 +76,25 @@ const Login = (props) => {
 
                     </Field>    
 
-                    <Button 
-                        mt={4}
-                        colorScheme="teal"
-                        isLoading={props.isSubmitting}
-                        type='submit'
-                    >
+                    <div className="flex justify-center">
+                        <Button 
+                            mt={4}
+                            colorScheme="teal"
+                            isLoading={props.isSubmitting}
+                            type='submit'
+                        >
 
-                        Submit
-                        
-                    </Button>   
+                            Submit
+                   
+                        </Button>
+                    </div>       
 
                 </Form>
                 
-            
+                </div>  
             )}
+
+         
 
         </Formik>
 
