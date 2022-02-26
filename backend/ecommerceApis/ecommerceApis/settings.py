@@ -63,6 +63,13 @@ INSTALLED_APPS = [
     
 ]
 
+ACCOUNT_EMAIL_REQUIRED = False
+
+ACCOUNT_USERNAME_REQUIRED= True
+
+ACCOUNT_AUTHENTICATION_METHOD ="username"
+
+ACCOUNT_UNIQUE_EMAIL=True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 SITE_ID = 1 
@@ -74,7 +81,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
@@ -143,6 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization

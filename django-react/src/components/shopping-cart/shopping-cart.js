@@ -10,22 +10,29 @@ import {
     ModalCloseButton
   } from '@chakra-ui/react';
 
- import {React,useState,useEffect,useCallback,Redirect} from "react";
+ import {React,useState,useEffect,useCallback} from "react";
+
+ import {useNavigate} from 'react-router-dom';
 
  import ProductItem from "components/product-item/product-item";
  
  import { useDispatch,useSelector } from 'react-redux';
 
+ import Login from 'components/login/login';
+
+ import CheckOut from 'components/check-out/check-out';
 
 const ShoppingCart = (props) =>{
-
+ 
     const {isOpen,onOpen,onClose} = useDisclosure();
   
+    const navigate = useNavigate();
+
     const [products,setProducts] = useState([]);
 
     const cart = useSelector(state=>state.shoppingCart.cart);
     const totalPrice = useSelector(state=>state.shoppingCart.totalPrice);
-    const user = useSelector(state=>state.user);
+    const isAuthenticated = useSelector(state=>state.authentication.isAuthenticated);
 
     
    
@@ -58,11 +65,14 @@ const ShoppingCart = (props) =>{
 
       onClose();
 
-      if(true){
-        return (<Redirect/>);
+      if(isAuthenticated){
+        console.log("User is logged in");
+        return navigate('/checkout');
       }
       else{
-        return (<Redirect/>);
+        //User is not logged in redirecting to Login
+        console.log("User is not logged in");
+        return navigate('/login');
       }
 
 
@@ -74,7 +84,7 @@ const ShoppingCart = (props) =>{
 
           <button className="bg-gray-200 text-base font-medium text-gray-600 rounded w-32 py-1 px-2 " onClick = {onOpen}>Cart</button>
           
-    
+
           <Modal isOpen={isOpen} size="lg" onClose={onClose} scrollBehavior='inside'>
 
             <ModalOverlay />
