@@ -1,50 +1,75 @@
 
 import {React,useCallback} from "react";
 import {Formik,Field,Form} from "formik";
-import { FormLabel,FormControl,Input,FormErrorMessage,Button } from "@chakra-ui/react";
-import { useDispatch,useEffect,useSelector } from "react-redux";
-import { setToken } from "./authentication-slice";
+import {FormLabel,FormControl,Input,FormErrorMessage,Button,InputGroup,InputRightElement } from "@chakra-ui/react";
+import {useDispatch,useSelector } from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useEffect,useState} from "react";
+import { setToken,setIsAuthenticated } from "./authentication-slice";
 import axios from "axios";
 
 
 const Login = (props) => {
-
+    const [show,setShow] = useState(false);
     let token = useSelector((state)=>state.token);
-
+    let isAuthenticated = useSelector((select)=>select.isAuthenticated);
+    const navigate = useNavigate();
     let dispatch = useDispatch();
     
-    const login = useCallback((credentials)=>{
-        const params = new URLSearchParams(credentials);
+    const login = useCallback((credentials,actions)=>{
+        
+        let formData = new FormData();
+        formData.append("username",credentials.username);
+        formData.append("password",credentials.password);
+        
+        //authenticate(credentials);
 
-
-        /*axios.post('api/dj-rest-auth/login', {
-            withCredentials: true,
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json"
-            }
-          },{
-            auth: {
-              username: credentials.username,
-              password: credentials.password
-          }}).then(function(response) {
-            console.log('Authenticated');
+        axios.post('api/dj-rest-auth/login/',
+            formData
+        ).then(function(response) {
+            console.log('Successfully authenticated');
+            isAuthenticated=true;
+            dispatch(setToken(response.data));
+            dispatch(setIsAuthenticated(true))
+            
           }).catch(function(error) {
             console.log(error);
-          });*/
+          })
+          .finally(()=>{
 
+            if(isAuthenticated){
+                console.log("Is authenticated so redirecting to check out");
 
+                
 
-        axios
-            .post(`api/dj-rest-auth/login`)
-            .then(res=>{
-                console.log(res);
-                token = res.data;
-                dispatch(setToken(res.data));
-            })
-            .catch(err=>console.log(err));
+                return navigate("/checkout");
+                
+            }
+            else{
+                console.log("Can not redirect failed to login");
+            }
+
+            
+
+          })
 
     })
+
+    const authenticate = async (formData) => {
+
+        try{
+            const resp = await axios.post('api/dj-rest-auth/login/',formData);
+            console.log(`Authenticated token ${resp.data}`);
+            dispatch(setToken(resp.data));
+            dispatch(setIsAuthenticated(true))
+        }
+        catch(err){
+
+            console.log(err);
+
+        }
+
+    }
 
 
     const validateInput = (value,message) => {
@@ -69,11 +94,11 @@ const Login = (props) => {
                 
                 setTimeout(()=>{
 
-                    login(values);
-                    
-                    actions.setSubmitting(false);
-                   
+                    login(values,actions);
 
+                    actions.setSubmitting(false);
+
+                    
                 },1000);
             }}
         >
@@ -107,9 +132,12 @@ const Login = (props) => {
                                 <FormLabel htmlFor = "password">
                                     Password
                                 </FormLabel>
-
-                                <Input {...field} id="password" placeholder="password"/>
-
+                                <InputGroup size="md">
+                                    <Input {...field} pr="4.5rem" type= {show? 'text' : 'password'} id="password" placeholder="password"/>
+                                    <InputRightElement width="4.5rem">
+                                        <Button>{show ? "Hide" : "Show"}</Button>
+                                    </InputRightElement>
+                                </InputGroup>
                                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
 
                             </FormControl>

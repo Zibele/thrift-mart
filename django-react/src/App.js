@@ -14,6 +14,7 @@ import Footer from "components/footer/footer";
 import {useMediaQuery} from "react-responsive";
 import ScreenContext from "helpers/Screen";
 import Login from "components/login/login";
+import Checkout from "components/check-out/check-out";
 
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
                       <Route path='/products' element={<ProductList/>}/>
                       <Route exact path='/' element={<ProductList/>}/>
                       <Route exact path='/login' element={<Login/>}/>
+                      <Route exact path='/checkout' element = {<Checkout/>} />
                     </Routes>
                   <Footer/>
           </ScreenContext.Provider>

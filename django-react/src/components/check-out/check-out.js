@@ -1,40 +1,51 @@
 
 
 import {useSelector} from 'react-redux';
-import {useCallBack} from 'react';
+import {useCallback, useEffect} from 'react';
 import ProductItem from 'components/check-out/check-out';
+import axios from 'axios';
 
 const Checkout = () => {
 
-    const cart = useSelector((select)=>select.shoppingCart);
+    const cart = useSelector((select)=>select.shoppingCart.cart);
     const user = useSelector((select)=>select.user);
+    const token = useSelector((select)=>select.authentication.token);
 
-    const items = cart.map(item => <ProductItem id={item.id}/>)
+    console.log(token);
+    useEffect(()=>{
 
-    const displayCart = useCallBack(()=>{
         
-        //displays shopping cart
-        
-        return (
-            <>
+
+
+    },[user])
+
+
+    const items = cart.map(item => {
+
+        let brandName = item.brand != null ? item.brand['brand'] : "None" 
             
-                <div className="flex flex-col space-y-2">
-
-                    {items}
-                    
-                </div>  
-
-                <div className="flex flex-row space-x">
-                       <span> {items.title} </span> 
-                       <span> {items.totalPrice} </span> 
-                       <span> {items.quantity} </span>
-                </div>
-            </> 
-        )
-
+        return  <ProductItem 
+                id = {item.id}
+                title = {item.title}
+                price = {item.price}
+                primaryImage = {item.primary_image}
+                secondaryImage = {item.secondary_image}
+                brand = {brandName}
+                
+            />    
         }
     
-    )
+    ) 
+
+
+    return (<>
+                
+                <h1> In Check out</h1>
+
+               
+
+                       
+            </>);
 
 }
 

@@ -46,7 +46,7 @@ const ProductItem = (props) => {
         }
 
 
-    },quantityOptions.length);
+    },[quantityOptions.length]);
 
     let productItem;
 
