@@ -166,16 +166,20 @@ const ProductList = (props) =>{
         let brandName = item.brand != null ? item.brand['brand'] : "None" 
             
         return  <ProductItem 
+                key = {item.id}
                 id = {item.id}
                 title = {item.title}
                 price = {item.price}
                 primaryImage = {item.primary_image}
                 secondaryImage = {item.secondary_image}
                 brand = {brandName}
+                inCatalog = {true}
                 
             />    
         }
         );
+
+        console.log(items);
 
         return (
             <>
