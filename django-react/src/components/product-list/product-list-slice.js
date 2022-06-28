@@ -6,17 +6,10 @@ export const ProductListSlice = createSlice({
         items:[]
     },
     reducers:{
-
         setProductList: (state,action) =>{
-            
             state.items = action.payload;
-
         }
-
     }
-
-
-
 })
 
 export const {setProductList} = ProductListSlice.actions;

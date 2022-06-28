@@ -149,7 +149,7 @@ const ProductList = (props) =>{
                    );
 
         }
-        else{
+        else if(productList.length > 0){
           
             filter= (<ProductFilter productQty={productList.length} filterProductList={filterProductList} updateProductFilters={updateProductFilters} productFilters={productFilters} orderFilters={orderFilters} orderSelectChange={orderSelectChange}/>);
 
