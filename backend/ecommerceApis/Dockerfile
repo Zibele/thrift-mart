@@ -12,7 +12,7 @@ WORKDIR /code
 #Copy requirements.txt from current directory, to docker /code directory
 COPY ./requirements.txt .
 
-RUN python3 -m pip install -r requirements.txt
+RUN apt install python3-django && apt install python3-dotenv && python3 -m pip install -r requirements.txt
 
 #Copy current directory to docker /code
 COPY . .
