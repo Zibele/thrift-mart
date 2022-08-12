@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     #3rd party apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -60,7 +59,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_rename_app',
     'django_filters'
-    
 ]
 
 ACCOUNT_EMAIL_REQUIRED = False
@@ -72,9 +70,8 @@ ACCOUNT_AUTHENTICATION_METHOD ="username"
 ACCOUNT_UNIQUE_EMAIL=True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+
 SITE_ID = 1 
-
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSIONS_CLASSES':[
@@ -116,21 +113,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerceApis.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'thriftstore',
         'USER': str(os.getenv('USER')),
         'PASSWORD': str(os.getenv('PASSWORD')),
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -149,8 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -173,7 +166,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL="/media/"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
