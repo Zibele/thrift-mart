@@ -119,9 +119,9 @@ WSGI_APPLICATION = 'ecommerceApis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'thriftstore',
-        'USER': str(os.getenv('USER')),
-        'PASSWORD': str(os.getenv('PASSWORD')),
+        'NAME': 'postgres',#'thriftstore',
+        'USER': 'postgres',#str(os.getenv('USER')),
+        'PASSWORD': 'postgres',#str(os.getenv('PASSWORD')),
         'HOST': 'db',
         'PORT': '5432',
     }
