@@ -1,0 +1,11 @@
+[
+    {
+        "model":"profiles.profile",
+        "fields":{
+            "user":1,
+            "address":1,
+            "role":[1],
+            "email":"admin@thrift.com"
+        }
+    }
+]

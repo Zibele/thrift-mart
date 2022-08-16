@@ -1,0 +1,10 @@
+[
+    { 
+        "model":"locations.address",
+        "pk":1,
+        "fields":{
+            "country":1,
+            "address":"000 Default Home, Default Street, Default Province 000"
+        }
+    }
+]

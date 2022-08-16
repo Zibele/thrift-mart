@@ -6,7 +6,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 from rest_framework.filters import OrderingFilter
 
-
 class ProductFilter(filters.FilterSet):
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
@@ -14,7 +13,6 @@ class ProductFilter(filters.FilterSet):
     class Meta:
         model = Product
         fields = ['brand','colour','size']    
-
 
 class ProductAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all().select_related("product_type")
@@ -40,5 +38,3 @@ class SizeAPIView(generics.ListCreateAPIView):
     serializer_class=ProductSizeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields= ['id','size']
-
-

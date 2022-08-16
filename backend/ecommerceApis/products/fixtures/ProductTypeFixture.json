@@ -1,0 +1,16 @@
+[
+    {
+        "pk":1,
+        "model":"products.producttype",
+        "fields":{
+            "category":"Jackets"
+        }
+    },
+    {
+        "pk":2,
+        "model":"products.producttype",
+        "fields":{
+            "category":"Shirts"
+        }
+    }
+]

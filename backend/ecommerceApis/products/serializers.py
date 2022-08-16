@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from products.models import ProductType,ProductGenderCategory,Product,Brand,Size,Colour
+from products.models import ProductType,Gender,Product,Brand,Size,Colour
 import base64,os
 
 class ProductTypeSerializer(serializers.ModelSerializer):
@@ -8,9 +8,9 @@ class ProductTypeSerializer(serializers.ModelSerializer):
         model = ProductType
         fields = "__all__"
 
-class ProductGenderCategorySerializer(serializers.ModelSerializer):
+class GenderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductGenderCategory
+        model = Gender
         fields = "__all__"
 
 class ProductBrandSerializer(serializers.ModelSerializer):

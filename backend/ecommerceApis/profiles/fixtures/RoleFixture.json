@@ -1,0 +1,9 @@
+[
+    {
+        "model":"profiles.role",
+        "pk":1,
+        "fields":{
+            "role":"admin"
+        }
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {   
+        "model":"locations.country",
+        "pk":1,
+        "fields":{
+            "country":"South Africa"
+        }
+    },
+    {
+        "model":"locations.country",
+        "pk":2,
+        "fields":{
+            "country":"Other"
+        }
+    }    
+]

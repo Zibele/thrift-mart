@@ -17,6 +17,7 @@ class Role(models.Model):
     )
 
     id = models.PositiveSmallIntegerField(choices = ROLE_CHOICES,primary_key = True)
+    role = models.CharField(max_length=30,default="admin")
 
     def __str__(self):
         return self.get_id_display()
@@ -25,8 +26,7 @@ class Role(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     address = models.ForeignKey(Address, on_delete = models.SET_NULL , null=True)
-    roles = models.ManyToManyField(Role)
+    role = models.ManyToManyField(Role)
     email = models.EmailField()
-
     def __str__(self):
         return self.user.username

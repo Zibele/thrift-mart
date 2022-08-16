@@ -11,6 +11,7 @@ class Country(models.Model):
     )
 
     id = models.PositiveSmallIntegerField(choices=(COUNTRY_CHOICES),primary_key=True)
+    country = models.CharField(max_length=30,default="South Africa")
 
     def __str__(self):
         return self.get_id_display()

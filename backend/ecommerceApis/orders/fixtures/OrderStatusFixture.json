@@ -1,0 +1,23 @@
+[
+    {
+        "model":"orders.orderstatus",
+        "pk":1,
+        "fields":{
+            "order_status":"Delivery is pending"
+        }
+    },
+    {
+        "model":"orders.orderstatus",
+        "pk":2,
+        "fields":{
+            "order_status":"Delivered"
+        }
+    },
+    {
+        "model":"orders.orderstatus",
+        "pk":3,
+        "fields":{
+            "order_status":"Cancelled"
+        }
+    }
+]
